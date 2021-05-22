@@ -29,8 +29,7 @@ const checkIfUserExists = async (req, res, next) => {
 
 	if (req.path === "/login") {
 		if (user) req.user = user;
-		
-    else
+		else
 			return next({
 				status: 400,
 				source: "Error while logging in.",
@@ -45,7 +44,6 @@ const validateBody = async (req, res, next) => {
 	try {
 		req.body = await userSchema.validateAsync(req.body, { stripUnknown: true });
 		next();
-    
 	} catch (err) {
 		if (req.path === "/register")
 			next({
