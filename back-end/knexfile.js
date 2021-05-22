@@ -1,20 +1,22 @@
+require("dotenv").config();
+
 module.exports = {
 	development: {
 		client: "pg",
-		connection: "postgresql://postgres:george02@localhost:5432/recipes",
+		connection: process.env.DEV_DATABASE_URL,
 		migrations: {
-			directory: "./db/migrations",
+			directory: "./data/migrations",
 		},
 		seeds: {
-			directory: "./db/seeds",
+			directory: "./data/seeds",
 		},
 	},
 
 	testing: {
 		client: "pg",
-		connection: "postgresql://postgres:george02@localhost:5432/recipes_testing",
+		connection: process.env.TESTING_DATABASE_URL,
 		migrations: {
-			directory: "./db/migrations",
+			directory: "./data/migrations",
 		},
 	},
 
@@ -22,7 +24,7 @@ module.exports = {
 		client: "pg",
 		connection: process.env.DATABASE_URL,
 		migrations: {
-			directory: "./db/migrations",
+			directory: "./data/migrations",
 		},
 	},
 };
