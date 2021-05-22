@@ -19,12 +19,12 @@ const authController = {
 				message: `Welcome back, ${req.user.username}.`,
 				token: buildToken(req.user),
 			});
-		else 
-      next({ 
-        status: 401,
-        source: "Error while logging in.",
-        message: "Invalid credentials." 
-      });
+		else
+			next({
+				status: 401,
+				source: "Error while logging in.",
+				message: "Invalid credentials.",
+			});
 	},
 };
 
