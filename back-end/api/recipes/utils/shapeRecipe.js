@@ -15,7 +15,7 @@ module.exports = (queryResults) => {
 		const instructionToAdd = { step_number, description };
 
 		const ingredientToAdd =
-			ingredient_id === null ? null : { ingredient_id, ingredient_name, quantity };
+			ingredient_id !== null ? { ingredient_id, ingredient_name, quantity } : null;
 
 		const existingRecipe = recipes.find((r) => r.recipe_id === recipe_id);
 
@@ -32,8 +32,8 @@ module.exports = (queryResults) => {
 		if (existingRecipe) {
 			if (existingCategory) {
 				if (existingStep) {
-					if (!existingIngredient)
-						if (ingredientToAdd) existingStep.ingredients.push(ingredientToAdd);
+					if (!existingIngredient && ingredientToAdd)
+						existingStep.ingredients.push(ingredientToAdd);
 				} else
 					existingRecipe.instructions.push({
 						...instructionToAdd,
@@ -41,10 +41,9 @@ module.exports = (queryResults) => {
 					});
 			} else {
 				existingRecipe.categories.push(category_name);
-
 				if (existingStep) {
-					if (!existingIngredient)
-						if (ingredientToAdd) existingStep.ingredients.push(ingredientToAdd);
+					if (!existingIngredient && ingredientToAdd)
+						existingStep.ingredients.push(ingredientToAdd);
 				} else
 					existingRecipe.instructions.push({
 						...instructionToAdd,

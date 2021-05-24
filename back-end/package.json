@@ -9,7 +9,8 @@
 		"latest": "knex migrate:latest",
 		"rollback": "knex migrate:rollback",
 		"seed": "knex seed:run",
-		"test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand"
+		"test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand",
+		"heroku-postbuild": "cd ../client && npm i && npm run build"
 	},
 	"keywords": [],
 	"author": "",

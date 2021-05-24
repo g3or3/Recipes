@@ -6,7 +6,7 @@ const recipesController = {
 	},
 
 	async getById(req, res) {
-		res.json(await Recipes.get(req.params.id));
+		res.json(req.recipe);
 	},
 
 	async create(req, res) {
@@ -18,7 +18,8 @@ const recipesController = {
 	},
 
 	async remove(req, res) {
-		res.send("works");
+		await Recipes.drop(req.params.id);
+		res.json(req.recipe);
 	},
 };
 

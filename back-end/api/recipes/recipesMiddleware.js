@@ -1,4 +1,19 @@
+const Recipes = require("./recipesModel");
 const recipeSchema = require("./validation");
+
+const validateId = async (req, res, next) => {
+	const [recipe] = await Recipes.get(req.params.id);
+
+	if (!recipe)
+		return next({
+			status: 401,
+			source: "Error while fetching recipe.",
+			message: "That recipe doesn't exist.",
+		});
+
+	req.recipe = recipe;
+	next();
+};
 
 const validateBody = async (req, res, next) => {
 	try {
@@ -13,4 +28,4 @@ const validateBody = async (req, res, next) => {
 	}
 };
 
-module.exports = { validateBody };
+module.exports = { validateId, validateBody };
