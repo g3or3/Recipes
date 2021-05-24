@@ -34,6 +34,11 @@ export default function Registration() {
             })
     }
 
+    const inputChange = (name, value) => {
+        // Add validation here
+        setFormValues({...formValues, [name]: value})
+    }
+
     return (
         <div>
             <form className='container' id='new-user-form' onSubmit={null}>
