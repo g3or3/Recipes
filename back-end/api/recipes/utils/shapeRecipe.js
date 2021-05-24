@@ -29,32 +29,34 @@ module.exports = (queryResults) => {
 			(i) => i.ingredient_id === ingredient_id
 		);
 
-		if (existingRecipe)
-			if (existingCategory)
-				if (existingStep) 
+		if (existingRecipe) {
+			if (existingCategory) {
+				if (existingStep) {
 					if (!existingIngredient)
-						if (ingredientToAdd) {
-              existingStep.ingredients.push(ingredientToAdd);				
-            }
+						if (ingredientToAdd) 
+              existingStep.ingredients.push(ingredientToAdd);
+        }
         else
 					existingRecipe.instructions.push({
 						...instructionToAdd,
 						ingredients: ingredientToAdd ? [ingredientToAdd] : null,
 					});
+      }
 			else {
 				existingRecipe.categories.push(category_name);
 
-				if (existingStep)
+				if (existingStep) {
 					if (!existingIngredient)
-						if (ingredientToAdd) {
+						if (ingredientToAdd) 
               existingStep.ingredients.push(ingredientToAdd);
-            }
+        }
         else
 					existingRecipe.instructions.push({
 						...instructionToAdd,
 						ingredients: ingredientToAdd ? [ingredientToAdd] : null,
 					});
 			}
+    }
 		else
 			recipes.push({
 				recipe_id,
