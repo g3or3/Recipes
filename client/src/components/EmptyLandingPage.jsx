@@ -1,5 +1,7 @@
 import React from 'react'
 
+// Needs link to new recipe creation component
+
 export default function EmptyLandingPage() {
 
     return (
