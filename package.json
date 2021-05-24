@@ -10,6 +10,10 @@
 		"rollback": "knex migrate:rollback",
 		"seed": "knex seed:run",
 		"test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand",
+		"migrateh": "heroku run knex migrate:latest -a secret-recipes-3",
+		"rollbackh": "heroku run knex migrate:rollback -a secret-recipes-3",
+		"databaseh": "heroku pg:psql -a secret-recipes-3",
+		"seedh": "heroku run knex seed:run -a secret-recipes-3",
 		"heroku-postbuild": "cd client && npm i && npm run build"
 	},
 	"keywords": [],
