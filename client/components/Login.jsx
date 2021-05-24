@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function Login() {
 
-    const initialForm = {
+    const initialFormValues = {
         username: '',
         password: ''
     }
@@ -12,30 +12,47 @@ export default function Login() {
         password: ''
     }
 
-    const initialDisabled = true
+    const initialDisabled = true;
 
-    const [form, setForm] = useState(initialForm)
+    const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [disabled, setDisabled] = useState(initialDisabled)
+    
+    const inputChange = (name, value) => {
+        // Add validation here
+        setFormValues({...formValues, [name]: value})
+    }
+
+    const onChange = evt => {
+        const {name, value} = evt.target
+        inputChange(name, value)
+    }
+
+    const formSubmit = () => {
+        // Add validation/URL location?
+    }
+
+    // Add useEffect for enabling/disabling submit button
 
     return (
         <div>
-            <form className='container' id='login-form' onSubmit={null}>
+            <form className='container' id='login-form' onSubmit={formSubmit}>
+                <h2>Login</h2>
                 <div className='inputs'>
                     <label>Username
                         <input
                         type='text'
                         name='username'
-                        value={form.name}
-                        onChange={null}
+                        value={formValues.username}
+                        onChange={onChange}
                         />
                     </label>
                     <label>Password
                         <input
                         type='password'
                         name='password'
-                        value={form.password}
-                        onChange={null}
+                        value={formValues.password}
+                        onChange={onChange}
                         />
                     </label>
                 </div>
