@@ -9,6 +9,7 @@ const userSchema = Joi.object({
 		.required()
 		.messages({
 			"any.required": "Username is required.",
+      "string.base": "Username must be a string.",
 			"string.empty": "Username cannot be empty.",
 		}),
 	password: Joi.string()
@@ -20,6 +21,7 @@ const userSchema = Joi.object({
 		.disallow(Joi.ref("username"))
 		.messages({
 			"any.required": "Password is required.",
+      "string.base": "Password must be a string.",
 			"string.empty": "Password cannot be empty.",
 			"any.invalid": "Password cannot be the same as your username.",
 		}),
