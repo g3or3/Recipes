@@ -39,24 +39,37 @@ export default function Registration() {
         setFormValues({...formValues, [name]: value})
     }
 
+    const onChange = evt => {
+        const {name, value} = evt.target
+        inputChange(name, value)
+    }
+
+    const formSubmit = () => {
+        const newUser = {
+            username: formValues.username.trim(),
+            password: formValues.password.trim()
+        }
+        createNewUser(newUser)
+    }
+
     return (
         <div>
-            <form className='container' id='new-user-form' onSubmit={null}>
+            <form className='container' id='new-user-form' onSubmit={formSubmit}>
                 <div className='inputs'>
                     <label>Username
                         <input
                         type='text'
                         name='username'
-                        value={newUser.name}
-                        onChange={null}
+                        value={formValues.username}
+                        onChange={onChange}
                         />
                     </label>
                     <label>Password
                         <input
                         type='password'
                         name='password'
-                        value={newUser.password}
-                        onChange={null}
+                        value={formValues.password}
+                        onChange={onChange}
                         />
                     </label>
                 </div>
@@ -64,7 +77,7 @@ export default function Registration() {
                 <div className='submit'>
                     <button disabled={disabled}>Submit</button>
                     <div className='errors'>
-                        <div>{formErrors.name}</div>
+                        <div>{formErrors.username}</div>
                         <div>{formErrors.password}</div>
                     </div>
                 </div>
