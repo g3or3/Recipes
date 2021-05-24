@@ -1,7 +1,7 @@
 const db = require("../../data/dbConfig");
 
 const findBy = (filter) => {
-	return db("users").where(filter).first();
+	return db("users").select("user_id", "username").where(filter).first();
 };
 
 const add = async (user) => {
