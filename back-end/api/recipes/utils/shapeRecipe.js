@@ -33,31 +33,25 @@ module.exports = (queryResults) => {
 			if (existingCategory) {
 				if (existingStep) {
 					if (!existingIngredient)
-						if (ingredientToAdd) 
-              existingStep.ingredients.push(ingredientToAdd);
-        }
-        else
+						if (ingredientToAdd) existingStep.ingredients.push(ingredientToAdd);
+				} else
 					existingRecipe.instructions.push({
 						...instructionToAdd,
 						ingredients: ingredientToAdd ? [ingredientToAdd] : null,
 					});
-      }
-			else {
+			} else {
 				existingRecipe.categories.push(category_name);
 
 				if (existingStep) {
 					if (!existingIngredient)
-						if (ingredientToAdd) 
-              existingStep.ingredients.push(ingredientToAdd);
-        }
-        else
+						if (ingredientToAdd) existingStep.ingredients.push(ingredientToAdd);
+				} else
 					existingRecipe.instructions.push({
 						...instructionToAdd,
 						ingredients: ingredientToAdd ? [ingredientToAdd] : null,
 					});
 			}
-    }
-		else
+		} else
 			recipes.push({
 				recipe_id,
 				recipe_title,
@@ -70,7 +64,7 @@ module.exports = (queryResults) => {
 					},
 				],
 			});
-	
+
 		return recipes;
 	}, []);
 };
