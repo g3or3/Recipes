@@ -52,6 +52,8 @@ export default function Registration() {
         createNewUser(newUser)
     }
 
+    // Add useEffect for enabling/disabling submit button
+
     return (
         <div>
             <form className='container' id='new-user-form' onSubmit={formSubmit}>
