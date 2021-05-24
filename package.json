@@ -1,0 +1,23 @@
+{
+	"name": "recipes",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"client": "cd client && npm start",
+		"server": "cd back-end && nodemon app.js",
+		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+		"heroku-postbuild": "cd client && npm install && npm run build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/secret-recipes-3/Recipes.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/secret-recipes-3/Recipes/issues"
+	},
+	"homepage": "https://github.com/secret-recipes-3/Recipes#readme"
+}
