@@ -1,24 +1,37 @@
 {
-	"name": "recipes",
+	"name": "back-end",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "cd back-end && npm install && node index.js",
-		"client": "cd client && npm start",
-		"server": "cd back-end && nodemon app.js",
-		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-		"heroku-postbuild": "cd client && npm install && npm run build"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/secret-recipes-3/Recipes.git"
+		"start": "node index.js",
+		"server": "nodemon index.js",
+		"latest": "knex migrate:latest",
+		"rollback": "knex migrate:rollback",
+		"seed": "knex seed:run",
+		"test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand",
+		"heroku-postbuild": "cd client && npm i && npm run build"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/secret-recipes-3/Recipes/issues"
+	"devDependencies": {
+		"@types/jest": "^26.0.23",
+		"cross-env": "^7.0.3",
+		"eslint": "^7.26.0",
+		"jest": "^26.6.3",
+		"nodemon": "^2.0.7",
+		"supertest": "^6.1.3"
 	},
-	"homepage": "https://github.com/secret-recipes-3/Recipes#readme"
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"helmet": "^4.6.0",
+		"joi": "^17.4.0",
+		"jsonwebtoken": "^8.5.1",
+		"knex": "^0.95.6",
+		"knex-cleaner": "^1.3.1",
+		"pg": "^8.6.0"
+	}
 }
