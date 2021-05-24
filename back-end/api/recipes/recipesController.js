@@ -14,7 +14,7 @@ const recipesController = {
 	},
 
 	async update(req, res) {
-		res.send("works");
+		res.json(await Recipes.edit());
 	},
 
 	async remove(req, res) {
