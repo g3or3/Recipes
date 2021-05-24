@@ -12,8 +12,11 @@ export default function Registration() {
         password: ''
     }
 
+    const initialDisabled = true
+
     const [newUser, setNewUser] = useState(initialNewUser)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
+    const [disabled, setDisabled] = useState(initialDisabled)
 
     return (
         <div>
@@ -38,7 +41,7 @@ export default function Registration() {
                 </div>
 
                 <div className='submit'>
-                    <button disabled={null}>Submit</button>
+                    <button disabled={disabled}>Submit</button>
                     <div className='errors'>
                         <div>{formErrors.name}</div>
                         <div>{formErrors.password}</div>
