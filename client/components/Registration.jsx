@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 export default function Registration() {
 
-    const initialNewUser = {
+    const initialFormValues = {
         username: '',
         password: ''
     }
@@ -12,11 +13,26 @@ export default function Registration() {
         password: ''
     }
 
-    const initialDisabled = true
+    const initialUsers = [];
+    const initialDisabled = true;
 
-    const [newUser, setNewUser] = useState(initialNewUser)
+    const [users, setUsers] = useState(initialUsers)
+    const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [disabled, setDisabled] = useState(initialDisabled)
+
+    const createNewUser = newUser => {
+        axios.post({/*Add endpoint*/}, newUser)
+            .then(res => {
+                setUsers([res.data, ...users])
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            .finally(() => {
+                setFormValues(initialFormValues)
+            })
+    }
 
     return (
         <div>
