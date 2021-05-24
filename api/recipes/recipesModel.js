@@ -35,15 +35,16 @@ const get = async (recipe_id) => {
 	return shapeRecipe(results);
 };
 
-const add = async (recipe) => {
+const add = async (recipe, user_id) => {
 	let newRecipeId, category_id, instruction_id, ingredient_id;
 
 	const { recipe_title, source, categories, instructions } = recipe;
 
 	await db.transaction(async (trx) => {
-		const [{ recipe_id }] = await trx("recipes").insert({ recipe_title, source }, [
-			"recipe_id",
-		]);
+		const [{ recipe_id }] = await trx("recipes").insert(
+			{ recipe_title, source, user_id },
+			["recipe_id"]
+		);
 
 		for (let category_name of categories) {
 			const existingCategory = await trx("categories").where({ category_name }).first();
