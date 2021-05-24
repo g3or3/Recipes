@@ -31,31 +31,33 @@ module.exports = (queryResults) => {
 
 		if (existingRecipe)
 			if (existingCategory)
-				if (existingStep) {
-					if (!existingIngredient) {
-						if (ingredientToAdd)
+				if (existingStep) 
+					if (!existingIngredient)
+						if (ingredientToAdd) 
               existingStep.ingredients.push(ingredientToAdd);
-					}
-				} else
+				
+        else
 					existingRecipe.instructions.push({
 						...instructionToAdd,
 						ingredients: ingredientToAdd ? [ingredientToAdd] : null,
 					});
+
 			else {
 				existingRecipe.categories.push(category_name);
 
-				if (existingStep) {
-					if (!existingIngredient) 
-            if (ingredientToAdd)
+				if (existingStep)
+					if (!existingIngredient)
+						if (ingredientToAdd) 
               existingStep.ingredients.push(ingredientToAdd);
-				} else {
+
+        else
 					existingRecipe.instructions.push({
 						...instructionToAdd,
 						ingredients: ingredientToAdd ? [ingredientToAdd] : null,
 					});
-				}
 			}
-		else {
+
+		else
 			recipes.push({
 				recipe_id,
 				recipe_title,
@@ -68,8 +70,7 @@ module.exports = (queryResults) => {
 					},
 				],
 			});
-		}
-
+	
 		return recipes;
 	}, []);
 };

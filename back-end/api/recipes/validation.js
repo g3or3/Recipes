@@ -52,7 +52,7 @@ const recipeSchema = Joi.object({
 										then: Joi.forbidden(),
 										otherwise: Joi.required().messages({
 											"any.required":
-												"If ingredient name is provided quantity is necessary.",
+												"If ingredient name is provided quantity is required.",
 										}),
 									}),
 							})

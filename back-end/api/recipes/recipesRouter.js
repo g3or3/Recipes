@@ -1,5 +1,6 @@
 const recipesController = require("./recipesController");
 const { validateBody } = require("./recipesMiddleware");
+
 const router = require("express").Router();
 
 router.get("/", recipesController.getAll);
