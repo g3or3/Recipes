@@ -32,7 +32,13 @@ app.use("/api/auth", require("./auth/authRouter"));
 app.use("/api/recipes", restricted, require("./recipes/recipesRouter"));
 
 app.use("*", (req, res) => {
-	res.sendFile(path.join(__dirname + "../", "client/build"));
+	if (
+		req.method === "GET" &&
+		req.accepts("html") &&
+		!req.is("json") &&
+		!req.path.includes(".")
+	)
+		res.sendFile(path.join(__dirname + "../", "client/build", "index.html"));
 });
 
 app.use((err, req, res, next) => {  //eslint-disable-line
