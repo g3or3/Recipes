@@ -10,7 +10,7 @@ const initialFormValues = {
   ingredientQuantity: "",
 };
 
-export default function EditRecipe() {
+export default function AddRecipe() {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [categories, setCategories] = useState([]);
   const [ingredients, setIngredients] = useState([]);
@@ -73,7 +73,7 @@ export default function EditRecipe() {
   return (
     <div className="recipe-edit">
       <form onSubmit={handleSubmit}>
-        <h2>Edit Recipe</h2>
+        <h2>Add Recipe</h2>
         <div className="recipe-info">
           <h3>Recipe Info</h3>
           <label>
