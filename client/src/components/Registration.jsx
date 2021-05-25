@@ -1,89 +1,69 @@
-import React, { useState } from 'react'
-import axios from 'axios'
+import React, { useState } from "react";
+import axios from "axios";
 
 export default function Registration() {
+	const initialFormValues = {
+		username: "",
+		password: "",
+	};
 
-    const initialFormValues = {
-        username: '',
-        password: ''
-    }
+	const initialFormErrors = {
+		username: "",
+		password: "",
+	};
 
-    const initialFormErrors = {
-        username: '',
-        password: ''
-    }
+	const initialDisabled = true;
 
-    const initialUsers = [];
-    const initialDisabled = true;
+	const [formValues, setFormValues] = useState(initialFormValues);
+	const [formErrors, setFormErrors] = useState(initialFormErrors);
+	const [disabled, setDisabled] = useState(initialDisabled);
 
-    const [users, setUsers] = useState(initialUsers)
-    const [formValues, setFormValues] = useState(initialFormValues)
-    const [formErrors, setFormErrors] = useState(initialFormErrors)
-    const [disabled, setDisabled] = useState(initialDisabled)
+	const inputChange = (name, value) => {
+		// Add validation here
+		setFormValues({ ...formValues, [name]: value });
+	};
 
-    const createNewUser = newUser => {
-        axios.post({/*Add endpoint*/}, newUser)
-            .then(res => {
-                setUsers([res.data, ...users])
-            })
-            .catch(err => {
-                console.log(err)
-            })
-            .finally(() => {
-                setFormValues(initialFormValues)
-            })
-    }
+	const onChange = (evt) => {
+		const { name, value } = evt.target;
+		inputChange(name, value);
+	};
 
-    const inputChange = (name, value) => {
-        // Add validation here
-        setFormValues({...formValues, [name]: value})
-    }
+	const formSubmit = () => {};
 
-    const onChange = evt => {
-        const {name, value} = evt.target
-        inputChange(name, value)
-    }
+	// Add useEffect for enabling/disabling submit button
 
-    const formSubmit = () => {
-        const newUser = {
-            username: formValues.username.trim(),
-            password: formValues.password.trim()
-        }
-        createNewUser(newUser)
-    }
+	return (
+		<div>
+			<form className="container" id="new-user-form" onSubmit={formSubmit}>
+				<div className="inputs">
+					<label>
+						Username
+						<input
+							type="text"
+							name="username"
+							value={formValues.username}
+							onChange={onChange}
+						/>
+					</label>
+					<label>
+						Password
+						<input
+							type="password"
+							name="password"
+							value={formValues.password}
+							onChange={onChange}
+						/>
+					</label>
+				</div>
 
-    // Add useEffect for enabling/disabling submit button
-
-    return (
-        <div>
-            <form className='container' id='new-user-form' onSubmit={formSubmit}>
-                <div className='inputs'>
-                    <label>Username
-                        <input
-                        type='text'
-                        name='username'
-                        value={formValues.username}
-                        onChange={onChange}
-                        />
-                    </label>
-                    <label>Password
-                        <input
-                        type='password'
-                        name='password'
-                        value={formValues.password}
-                        onChange={onChange}
-                        />
-                    </label>
-                </div>
-
-                <div className='submit'>
-                    <button disabled={disabled}>Submit</button>
-                    <div className='errors'>
-                        <div>{formErrors.username}</div>
-                        <div>{formErrors.password}</div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    )
+				<div className="submit">
+					<button disabled={disabled}>Submit</button>
+					<div className="errors">
+						<div>{formErrors.username}</div>
+						<div>{formErrors.password}</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	);
 }

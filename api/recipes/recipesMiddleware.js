@@ -2,7 +2,7 @@ const Recipes = require("./recipesModel");
 const recipeSchema = require("./validation");
 
 const validateId = async (req, res, next) => {
-	const [recipe] = await Recipes.get(req.params.id);
+	const [recipe] = await Recipes.get(req.decoded.subject, req.params.id);
 
 	if (!recipe)
 		return next({

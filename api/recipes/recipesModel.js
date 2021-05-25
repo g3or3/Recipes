@@ -1,7 +1,7 @@
 const db = require("../../data/dbConfig");
 const shapeRecipe = require("./utils/shapeRecipe");
 
-const get = async (recipe_id) => {
+const get = async (user_id, recipe_id) => {
 	const results = await db
 		.select(
 			"r.recipe_id",
@@ -25,6 +25,7 @@ const get = async (recipe_id) => {
 			"i.instruction_id"
 		)
 		.leftJoin("ingredients as ing", "ing.ingredient_id", "ipi.ingredient_id")
+		.where({ user_id })
 		.orderBy(["r.recipe_id", "step_number"])
 		.modify(function (queryBuilder) {
 			if (recipe_id) {
@@ -95,8 +96,8 @@ const add = async (recipe, user_id) => {
 
 const edit = async () => {};
 
-const drop = (recipe_id) => {
-	return db("recipes").where({ recipe_id }).del();
+const drop = (user_id, recipe_id) => {
+	return db("recipes").where({ user_id, recipe_id }).del();
 };
 
 module.exports = { get, add, edit, drop };
