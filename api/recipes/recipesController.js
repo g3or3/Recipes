@@ -2,7 +2,7 @@ const Recipes = require("./recipesModel");
 
 const recipesController = {
 	async getAll(req, res) {
-		res.json(await Recipes.get());
+		res.json(await Recipes.get(req.decoded.subject));
 	},
 
 	async getById(req, res) {
@@ -18,7 +18,7 @@ const recipesController = {
 	},
 
 	async remove(req, res) {
-		await Recipes.drop(req.params.id);
+		await Recipes.drop(req.decoded.subject, req.params.id);
 		res.json(req.recipe);
 	},
 };
