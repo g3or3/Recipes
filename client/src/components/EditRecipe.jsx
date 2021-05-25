@@ -73,8 +73,9 @@ export default function EditRecipe() {
   return (
     <div className="recipe-edit">
       <form onSubmit={handleSubmit}>
+        <h2>Edit Recipe</h2>
         <div className="recipe-info">
-          <h2>Recipe Info</h2>
+          <h3>Recipe Info</h3>
           <label>
             Title
             <input
@@ -111,7 +112,7 @@ export default function EditRecipe() {
         </div>
 
         <div className="instructions">
-          <h2>Instructions</h2>
+          <h3>Instructions</h3>
           <div className="steps">
             <label>
               Step Number
