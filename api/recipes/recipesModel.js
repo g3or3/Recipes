@@ -1,4 +1,4 @@
-const db = require("../data/dbConfig");
+const db = require("../../data/dbConfig");
 const shapeRecipe = require("./utils/shapeRecipe");
 
 const get = async ({ user_id, recipe_id }) => {

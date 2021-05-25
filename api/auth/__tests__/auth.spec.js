@@ -1,7 +1,7 @@
 const request = require("supertest");
 const cleaner = require("knex-cleaner");
-const app = require("../../app");
-const db = require("../../data/dbConfig");
+const app = require("../../../app");
+const db = require("../../../data/dbConfig");
 const Users = require("../../users");
 
 let res;

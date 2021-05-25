@@ -1,4 +1,4 @@
-const db = require("../data/dbConfig");
+const db = require("../../data/dbConfig");
 
 const findBy = (filter) => {
 	return db("users").where(filter).first();

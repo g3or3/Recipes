@@ -2,7 +2,7 @@ const path = require("path");
 const helmet = require("helmet");
 const cors = require("cors");
 const express = require("express");
-const { restricted } = require("./auth/authMiddleware");
+const { restricted } = require("./api/auth/authMiddleware");
 
 const app = express();
 
@@ -13,26 +13,15 @@ app.use(
 	})
 );
 
-// app.use(
-// 	helmet.contentSecurityPolicy({
-// 		directives: {
-// 			objectSrc: ["'none'"],
-// 			styleSrc: ["self"],
-// 			defaultSrc: ["'self'"],
-//       scriptSrc: ['unsafe-inline']
-// 		},
-// 	})
-// );
-
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "/client/build")));
 
-app.use("/api/auth", require("./auth/authRouter"));
-app.use("/api/recipes", restricted, require("./recipes/recipesRouter"));
+app.use("/api/auth", require("./api/auth/authRouter"));
+app.use("/api/recipes", restricted, require("./api/recipes/recipesRouter"));
 
 app.get("/*", (req, res) => {
-		res.sendFile(path.join(__dirname + "/client/build", "index.html"));
+	res.sendFile(path.join(__dirname + "/client/build", "index.html"));
 });
 
 app.use((err, req, res, next) => {  //eslint-disable-line
