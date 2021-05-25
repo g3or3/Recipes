@@ -24,8 +24,37 @@ export default function EditRecipe() {
     }
 
     return (
-        <div>
-            
+        <div className='recipe-edit'>
+            <form>
+                <div className='recipe-info'>
+                    <h2>Recipe Info</h2>
+                    <label>Title</label>
+                        <input
+                        type='text'
+                        name='title'
+                        value={formValues.title}
+                        onChange={onChange}
+                        />
+                    <label>Source</label>
+                        <input
+                        type='text'
+                        name='source'
+                        value={formValues.source}
+                        onChange={onChange}
+                        />
+                    <label>Category</label>
+                        <input
+                        type='text'
+                        name='category'
+                        value={formValues.category}
+                        onChange={onChange}
+                        />
+                </div>
+
+                <div className='instructions'>
+                    <h2>Instructions</h2>
+                </div>
+            </form>
         </div>
     )
 }
