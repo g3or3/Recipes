@@ -12,4 +12,4 @@ const users = createSlice({
 		logout: (users, action) => {},
 	},
 });
-export default users;
+export default users.reducer;

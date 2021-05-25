@@ -42,4 +42,4 @@ export const removeRecipe = (id) => {};
 
 export const { recipesFetched } = recipes.actions;
 
-export default recipes;
+export default recipes.reducer;

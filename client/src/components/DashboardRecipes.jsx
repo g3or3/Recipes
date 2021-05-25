@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchRecipes } from "../ store/recipe";
 
 export default function DashboardRecipes() {
-	const recipes = useSelector((state) => state.reducer.recipeList);
+	const recipes = useSelector((state) => state.recipes.recipeList);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
