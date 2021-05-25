@@ -4,6 +4,8 @@ const app = require("../../app");
 const db = require("../../../data/dbConfig");
 const Users = require("../../users");
 
+let res;
+
 const attempt = {
 	success: { username: "testuser", password: "testpassword" },
 	wrongUsername: { username: "testUser", password: "testpassword" },
@@ -44,13 +46,10 @@ afterAll(async () => {
 });
 
 describe("[POST] /register", () => {
-	let res;
-
 	it("registers a new user successfully", async () => {
 		res = await request(app).post("/api/auth/register").send(attempt.success);
 		expect(res.body).toHaveProperty("user_id");
 		expect(res.body).toHaveProperty("username");
-		expect(res.body).toHaveProperty("password");
 	});
 
 	it("adds the registered user to the database", async () => {
@@ -67,7 +66,7 @@ describe("[POST] /register", () => {
 		});
 
 		it("catches existing username", async () => {
-			res = await request(app).post("/api/auth/register").send(attempt.success);
+			await request(app).post("/api/auth/register").send(attempt.success);
 			res = await request(app).post("/api/auth/register").send(attempt.success);
 			expect(res.body.message).toContain(errMsg.existingUsername);
 		});
@@ -100,10 +99,8 @@ describe("[POST] /register", () => {
 });
 
 describe("[POST] /login", () => {
-	let res;
-
 	it("logs in a user successfully", async () => {
-		res = await request(app).post("/api/auth/register").send(attempt.success);
+		await request(app).post("/api/auth/register").send(attempt.success);
 		res = await request(app).post("/api/auth/login").send(attempt.success);
 		expect(res.body).toHaveProperty("message");
 		expect(res.body).toHaveProperty("token");
@@ -115,13 +112,13 @@ describe("[POST] /login", () => {
 		});
 
 		it("catches username that does not exist", async () => {
-			res = await request(app).post("/api/auth/register").send(attempt.success);
+			await request(app).post("/api/auth/register").send(attempt.success);
 			res = await request(app).post("/api/auth/login").send(attempt.wrongUsername);
 			expect(res.body.message).toContain(errMsg.wrongUsername);
 		});
 
 		it("catches wrong password", async () => {
-			res = await request(app).post("/api/auth/register").send(attempt.success);
+			await request(app).post("/api/auth/register").send(attempt.success);
 			res = await request(app).post("/api/auth/login").send(attempt.wrongPassword);
 			expect(res.body.message).toContain(errMsg.wrongPassword);
 		});

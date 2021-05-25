@@ -1,16 +1,28 @@
 const Recipes = require("./recipesModel");
 
+let recipe, recipe_id, user_id;
+
 const recipesController = {
 	async getAll(req, res) {
-		res.json(await Recipes.get(req.decoded.subject));
+		user_id = req.decoded.subject;
+
+		res.json(await Recipes.get({ user_id }));
 	},
 
 	async getById(req, res) {
 		res.json(req.recipe);
 	},
 
-	async create(req, res) {
-		res.json(await Recipes.add(req.body, req.decoded.subject));
+	async create(req, res, next) {
+		recipe = req.body;
+		user_id = req.decoded.subject;
+
+		try {
+			const [newRecipe] = await Recipes.add({ recipe, user_id });
+			res.json(newRecipe);
+		} catch (err) {
+			next({ source: "Error while creating a new recipe.", message: err });
+		}
 	},
 
 	async update(req, res) {
@@ -18,7 +30,10 @@ const recipesController = {
 	},
 
 	async remove(req, res) {
-		await Recipes.drop(req.decoded.subject, req.params.id);
+		user_id = req.decoded.subject;
+		recipe_id = req.params.id;
+
+		await Recipes.drop(user_id, recipe_id);
 		res.json(req.recipe);
 	},
 };
