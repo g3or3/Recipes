@@ -1,4 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import recipes from "./recipe";
+import reducer from "./reducer";
 
-export const store = configureStore({ reducer: recipes });
+export const store = configureStore({ reducer });
