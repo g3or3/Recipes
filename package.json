@@ -14,7 +14,7 @@
 		"rollbackh": "heroku run knex migrate:rollback -a secret-recipes-3",
 		"databaseh": "heroku pg:psql -a secret-recipes-3",
 		"seedh": "heroku run knex seed:run -a secret-recipes-3",
-		"heroku-postbuild": "cd client && npm i && npm run build"
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
 	},
 	"keywords": [],
 	"author": "",
