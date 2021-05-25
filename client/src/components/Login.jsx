@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function Login() {
 
@@ -19,9 +19,25 @@ export default function Login() {
     const [disabled, setDisabled] = useState(initialDisabled)
     
     const inputChange = (name, value) => {
-        // Add validation here
-        setFormValues({...formValues, [name]: value})
-    }
+        // Add validation her
+        yup.reach(schema, name)
+        .validate(value)
+        .then(() => {
+            setFormErrors({
+                ...formErrors,
+                [name]: '',
+            });
+        })
+        .catch((err) => {
+            serFormErrors({
+                ...formErrors,
+                [name]: err.errors[0],
+            });
+        });
+
+            setFormValues({...formValues, [name]: value}) ,
+    });
+    };
 
     const onChange = evt => {
         const {name, value} = evt.target
@@ -29,8 +45,12 @@ export default function Login() {
     }
 
     const formSubmit = () => {
+        const newLogin = {
+          username: form.Values.username.trim(),
+          password: form.Values.password.trim()
+        };
         // Add validation/URL location?
-    }
+    };
 
     // Add useEffect for enabling/disabling submit button
 
