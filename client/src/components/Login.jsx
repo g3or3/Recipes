@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import * as yup from 'yup'
+import schema from '../validation/loginSchema'
 
 export default function Login() {
 
@@ -17,9 +19,12 @@ export default function Login() {
     const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [disabled, setDisabled] = useState(initialDisabled)
-    
+
     const inputChange = (name, value) => {
-        // Add validation here
+        yup.reach(schema, name)
+            .validate(value)
+            .then(() => setFormErrors({...formErrors, [name]: ''}))
+            .catch(err => setFormErrors({...formErrors, [name]: err.errors[0]}))
         setFormValues({...formValues, [name]: value})
     }
 
@@ -32,7 +37,9 @@ export default function Login() {
         // Add validation/URL location?
     }
 
-    // Add useEffect for enabling/disabling submit button
+   useEffect(() => {
+       schema.isValid(formValues).then(valid => setDisabled(!valid))
+   }, [formValues])
 
     return (
         <div>
@@ -60,7 +67,7 @@ export default function Login() {
                 <div className='submit'>
                     <button disabled={disabled}>Submit</button>
                     <div className='errors'>
-                        <div>{formErrors.name}</div>
+                        <div>{formErrors.username}</div>
                         <div>{formErrors.password}</div>
                     </div>
                 </div>
