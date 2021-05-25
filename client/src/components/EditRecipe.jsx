@@ -105,6 +105,9 @@ export default function EditRecipe() {
           <button type="button" onClick={handleAddCategory}>
             Add Category
           </button>
+          {categories.map((category) => {
+            return <p>{category}</p>;
+          })}
         </div>
 
         <div className="instructions">
@@ -150,10 +153,34 @@ export default function EditRecipe() {
               <button type="button" onClick={handleAddIngredient}>
                 Add Ingredient
               </button>
+              {ingredients.map((ingredient) => {
+                return (
+                  <p>
+                    Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
+                    {ingredient.quantity}
+                  </p>
+                );
+              })}
             </div>
             <button type="button" onClick={handleAddInstruction}>
               Add Instruction
             </button>
+            {instructions.map((instruction) => {
+              return (
+                <div className="instruction-container">
+                  <p>Step {instruction.step_number}</p>
+                  <p>{instruction.description}</p>
+                  {instruction.ingredients.map((ingredient) => {
+                    return (
+                      <p>
+                        Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
+                        {ingredient.quantity}
+                      </p>
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
         </div>
         <button>Submit Recipe</button>
