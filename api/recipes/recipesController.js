@@ -10,7 +10,7 @@ const recipesController = {
 	},
 
 	async create(req, res) {
-		res.json(await Recipes.add(req.body));
+		res.json(await Recipes.add(req.body, req.decoded.subject));
 	},
 
 	async update(req, res) {

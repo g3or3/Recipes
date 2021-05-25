@@ -8,7 +8,9 @@ const authController = {
 	async register(req, res) {
 		req.body.password = await bcrypt.hash(req.body.password, parseInt(ROUNDS));
 
-		res.json(await Users.add(req.body));
+		const { user_id, username } = await Users.add(req.body);
+
+		res.json({ user_id, username });
 	},
 
 	async login(req, res, next) {

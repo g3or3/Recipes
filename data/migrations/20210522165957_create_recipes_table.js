@@ -4,6 +4,12 @@ exports.up = function (knex) {
 			tbl.increments("recipe_id");
 			tbl.string("recipe_title").notNullable();
 			tbl.string("source").notNullable();
+			tbl
+				.uuid("user_id")
+				.references("user_id")
+				.inTable("users")
+				.onUpdate("CASCADE")
+				.onDelete("CASCADE");
 		})
 
 		.createTable("categories", (tbl) => {
