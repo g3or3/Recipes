@@ -38,7 +38,7 @@ app.use("*", (req, res) => {
 		!req.is("json") &&
 		!req.path.includes(".")
 	)
-		res.sendFile(path.join(__dirname + "../client/build"));
+		res.sendFile(path.join(__dirname + "../client/build", "index.html"));
 });
 
 app.use((err, req, res, next) => {  //eslint-disable-line
