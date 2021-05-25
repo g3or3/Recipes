@@ -31,13 +31,7 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 app.use("/api/auth", require("./auth/authRouter"));
 app.use("/api/recipes", restricted, require("./recipes/recipesRouter"));
 
-app.use("/*", (req, res) => {
-	if (
-		req.method === "GET" &&
-		req.accepts("html") &&
-		!req.is("json") &&
-		!req.path.includes(".")
-	)
+app.get("*", (req, res) => {
 		res.sendFile(path.join(__dirname + "../client/build", "index.html"));
 });
 
