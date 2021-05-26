@@ -56,6 +56,7 @@ const StyledLogin = styled.div`
     color: #2e2e2e;
     background-color: #73b0cc;
     cursor: pointer;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2);
     &:disabled {
       cursor: not-allowed;
       color: #818181;
