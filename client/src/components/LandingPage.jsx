@@ -11,7 +11,7 @@ function LandingPage() {
         Log In
       </button>
       <button
-        onClick={() => history.push("./registration")}
+        onClick={() => history.push("./register")}
         className="reg-btn button"
       >
         Registration
