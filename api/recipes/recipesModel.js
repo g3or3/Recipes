@@ -94,10 +94,12 @@ const add = async ({ recipe, user_id }) => {
 	return get({ user_id, recipe_id: newRecipeId });
 };
 
-const edit = async () => {};
+const edit = async (recipe) => {
+	return db("recipes").where({ recipe_id: recipe.recipe_id });
+};
 
-const drop = (user_id, recipe_id) => {
-	return db("recipes").where({ user_id, recipe_id }).del();
+const drop = (recipe_id) => {
+	return db("recipes").where({ recipe_id }).del();
 };
 
 module.exports = { get, add, edit, drop };

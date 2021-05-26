@@ -1,6 +1,6 @@
 const request = require("supertest");
 const cleaner = require("knex-cleaner");
-const app = require("../../app");
+const app = require("../../../app");
 const db = require("../../../data/dbConfig");
 
 let res, auth;
@@ -40,6 +40,11 @@ const recipe = {
 
 const errMsg = {
 	notLoggedIn: "User is not logged in.",
+	missingTitle: "Recipe title is required.",
+	missingSource: "Source is required.",
+	missingCategory: "At least one category is required.",
+	missingInstructions: "Instructions is an array of one or more instruction objects.",
+	recipeNotExists: "That recipe doesn't exist.",
 };
 
 beforeAll(async () => {
@@ -68,7 +73,7 @@ describe("Not logged in.", () => {
 	});
 });
 
-describe("[GET] /recipes", () => {
+describe("[GET] /recipes && /recipes/:id", () => {
 	beforeEach(async () => {
 		await request(app).post("/api/recipes").set(auth).send(recipe);
 	});
@@ -83,11 +88,72 @@ describe("[GET] /recipes", () => {
 		res = await request(app).get("/api/recipes/1").set(auth);
 		expect(res.body).toMatchObject({ recipe_id: 1, ...recipe });
 	});
+
+	describe("invalid recipe id", () => {
+		it("returns an error message if invalid recipe id", async () => {
+			res = await request(app).get("/api/recipes/256").set(auth);
+			expect(res.body).toMatchObject({ message: errMsg.recipeNotExists });
+		});
+	});
 });
 
 describe("[POST] /recipes", () => {
+	it("doesn't allow creation of a recipe if not logged in", async () => {
+		res = await request(app).post("/api/recipes").send(recipe);
+		expect(res.body).toMatchObject({ message: errMsg.notLoggedIn });
+	});
+
 	it("creates a new recipe successfully", async () => {
 		res = await request(app).post("/api/recipes").set(auth).send(recipe);
 		expect(res.body).toMatchObject({ recipe_id: 1, ...recipe });
+	});
+
+	describe("invalid create recipe attempts", () => {
+		it("does not create a new recipe with missing title", async () => {
+			res = await request(app).post("/api/recipes").set(auth).send();
+			expect(res.body).toMatchObject({ message: errMsg.missingTitle });
+		});
+
+		it("does not create a new recipe with missing source", async () => {
+			res = await request(app)
+				.post("/api/recipes")
+				.set(auth)
+				.send({ recipe_title: "Title" });
+			expect(res.body).toMatchObject({ message: errMsg.missingSource });
+		});
+
+		it("does not create a new recipe with missing categories array and at least one category string", async () => {
+			res = await request(app)
+				.post("/api/recipes")
+				.set(auth)
+				.send({ recipe_title: "Title", source: "Source" });
+			expect(res.body).toMatchObject({ message: errMsg.missingCategory });
+		});
+
+		it("does not create a new recipe with missing instructions array and at least one instruction object", async () => {
+			res = await request(app)
+				.post("/api/recipes")
+				.set(auth)
+				.send({ recipe_title: "Title", source: "Source", categories: ["category"] });
+			expect(res.body.message).toContain(errMsg.missingInstructions);
+		});
+	});
+});
+
+describe("[DELETE] /recipes/:id", () => {
+	let recipe_id;
+
+	beforeEach(async () => {
+		res = await request(app).post("/api/recipes").set(auth).send(recipe);
+		recipe_id = res.body.recipe_id;
+		res = await request(app).get(`/api/recipes/${recipe_id}`).set(auth);
+		expect(res.body).toMatchObject(recipe);
+	});
+
+	it("deletes a recipe successfully by its id and returns the deleted recipe", async () => {
+		res = await request(app).delete(`/api/recipes/${recipe_id}`).set(auth);
+		expect(res.body).toMatchObject(recipe);
+		res = await request(app).get(`/api/recipes/${recipe_id}`).set(auth);
+		expect(res.body).toMatchObject({ message: errMsg.recipeNotExists });
 	});
 });
