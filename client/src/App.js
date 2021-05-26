@@ -1,7 +1,7 @@
 import Registration from "./components/Registration";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
-import LandingPage from "./components";
+import LandingPage from "./components/LandingPage";
 import Login from "./components/Login";
 import DashboardRecipes from "./components/DashboardRecipes";
 import AddRecipe from "./components/AddRecipe";
