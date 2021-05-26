@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
 import schema from '../validation/loginSchema'
 
+const initialFormValues = {
+    username: '',
+    password: ''
+}
+
+const initialFormErrors = {
+    username: '',
+    password: ''
+}
+
+const initialDisabled = true;
+
 export default function Login() {
-
-    const initialFormValues = {
-        username: '',
-        password: ''
-    }
-
-    const initialFormErrors = {
-        username: '',
-        password: ''
-    }
-
-    const initialDisabled = true;
 
     const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
