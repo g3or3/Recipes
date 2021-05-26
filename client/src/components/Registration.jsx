@@ -26,6 +26,12 @@ const StyledRegistration = styled.div`
     margin: 2% 0 3% 0;
   }
 
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   label {
     font-size: 1.6rem;
     padding: 2%;
@@ -39,12 +45,6 @@ const StyledRegistration = styled.div`
     font-size: 1.2rem;
     border: none;
     border-radius: 4px;
-  }
-
-  .inputs {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 
   button {
