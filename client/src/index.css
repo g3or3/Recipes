@@ -128,15 +128,7 @@ table {
 /* General Stylings */
 
 body {
-  background-color: #e2d4ba;
+  background-color: #ebe1cf;
   font-size: 62.5%;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.container {
-  border: 1px solid black;
+  font-family: "Merriweather", serif;
 }

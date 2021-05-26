@@ -10,15 +10,65 @@ const StyledRegistration = styled.div`
   display: flex;
   justify-content: center;
   padding: 10%;
+  color: #2e2e2e;
 
   .container {
     text-align: center;
-    padding: 2%;
-    background-color: #a7a284;
+    padding: 1%;
+    background-color: #7c9082;
+    border-radius: 12px;
+    box-shadow: 0px 0px 15px #37413a;
+    width: 50%;
   }
 
   h2 {
     font-size: 3rem;
+    margin: 2% 0 3% 0;
+  }
+
+  label {
+    font-size: 1.6rem;
+    padding: 2%;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+  }
+
+  input {
+    width: 60%;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 4px;
+  }
+
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  button {
+    margin: 2%;
+    font-size: 1.4rem;
+    padding: 1% 3%;
+    border: none;
+    border-radius: 12px;
+    color: #2e2e2e;
+    background-color: #73b0cc;
+    cursor: pointer;
+    &:disabled {
+      cursor: not-allowed;
+      color: #818181;
+    }
+    &:active {
+      background-color: #558da7;
+    }
+  }
+
+  .errors {
+    font-size: 1.2rem;
+    color: #bb0000;
+    line-height: 1.2;
   }
 `;
 
