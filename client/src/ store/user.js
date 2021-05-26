@@ -5,45 +5,59 @@ const users = createSlice({
 	name: "users",
 	initialState: {
 		loading: false,
+		registerSuccess: null,
+		loginSuccess: null,
 	},
 	reducers: {
 		setLoading: (users) => {
-			users.loading = !users.loading
+			users.loading = !users.loading;
+		},
+		register: (users, action) => {
+			if (action.payload.attempt === false) users.registerSuccess = false;
+			else users.registerSuccess = true;
 		},
 		login: (users, action) => {
-			users.loading = action.payload
-			localStorage.setItem("token", action.payload.token);
+			if (action.payload.attempt === false) users.loginSuccess = false;
+			else {
+				localStorage.setItem("token", action.payload.token);
+				users.loginSuccess = true;
+			}
 		},
 		logout: (users) => {
-			localStorage.removeItem("token")
+			localStorage.removeItem("token");
+			users.registerSuccess = null;
+			users.loginSuccess = null;
 		},
 	},
 });
 
 export const userLogin = (inputs) => (dispatch) => {
-	dispatch(setLoading())
+	dispatch(setLoading());
 	axiosWithAuth()
-		.post("api/login", inputs)
-		.then(res => {
-			dispatch(login(res.data))
-			dispatch(setLoading())
+		.post("/api/auth/login", inputs)
+		.then((res) => {
+			dispatch(login(res.data));
+			dispatch(setLoading());
 		})
-		.catch(err => {
-			console.log(err, {err})
-		})
-}
+		.catch((err) => {
+			dispatch(login({ attempt: false }));
+			console.log(err, { err });
+		});
+};
 
 export const userRegister = (inputs) => (dispatch) => {
-	dispatch(setLoading())
+	dispatch(setLoading());
 	axiosWithAuth()
-	.post("api/register", inputs)
-	.then(res => {
-		dispatch(setLoading())
-	.catch(err => {
-		console.log(err, {err})
-	})
-	})
-}
-export const {login, logout, setLoading} = users.actions
-export const selectUser = (users) => users.loading.loading
+		.post("/api/auth/register", inputs)
+		.then((res) => {
+			dispatch(register());
+			dispatch(setLoading());
+		})
+		.catch((err) => {
+			dispatch(register({ attempt: false }));
+			console.log(err, { err });
+		});
+};
+export const { register, login, logout, setLoading } = users.actions;
+
 export default users.reducer;

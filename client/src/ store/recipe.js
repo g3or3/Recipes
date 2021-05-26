@@ -36,37 +36,38 @@ export const fetchRecipes = () => (dispatch) => {
 
 export const addRecipe = (newRecipe) => (dispatch) => {
 	axiosWithAuth()
-	.get("/api/recipes", newRecipe)
-	.then((res) => {
-		dispatch(recipeAdded(res.data))
-	})
-	.catch((err) => {
-		console.log(err, {err})
-	})
+		.post("/api/recipes", newRecipe)
+		.then((res) => {
+			dispatch(recipeAdded(res.data));
+		})
+		.catch((err) => {
+			console.log(err, { err });
+		});
 };
 
 export const editRecipe = (id, recipeToEdit) => (dispatch) => {
 	axiosWithAuth()
-	.get(`/api/recipes/${id}`, recipeToEdit)
-	.then((res) => {
-		dispatch(recipeEdited(res.data))
-	})
-	.catch((err) => {
-		console.log(err, {err})
-	})
+		.put(`/api/recipes/${id}`, recipeToEdit)
+		.then((res) => {
+			dispatch(recipeEdited(res.data));
+		})
+		.catch((err) => {
+			console.log(err, { err });
+		});
 };
 
 export const removeRecipe = (id) => (dispatch) => {
 	axiosWithAuth()
-	.delete(`/api/recipes/${id}`)
-	.then((res) => {
-		dispatch(recipeRemoved(res.data))
-	})
-	.catch((err) => {
-		console.log(err, {err})
-	})
+		.delete(`/api/recipes/${id}`)
+		.then((res) => {
+			dispatch(recipeRemoved(res.data));
+		})
+		.catch((err) => {
+			console.log(err, { err });
+		});
 };
 
-export const { recipesFetched, recipeAdded, recipeEdited, recipeRemoved } = recipes.actions;
+export const { recipesFetched, recipeAdded, recipeEdited, recipeRemoved } =
+	recipes.actions;
 
 export default recipes.reducer;
