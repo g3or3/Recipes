@@ -9,7 +9,7 @@ router.get("/:id", validateId, recipesController.getById);
 
 router.post("/", validateBody, recipesController.create);
 
-router.put("/:id", recipesController.update);
+router.put("/:id", validateId, validateBody, recipesController.update);
 
 router.delete("/:id", validateId, recipesController.remove);
 

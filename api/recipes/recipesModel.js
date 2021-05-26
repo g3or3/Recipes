@@ -1,7 +1,7 @@
 const db = require("../../data/dbConfig");
 const shapeRecipe = require("./utils/shapeRecipe");
 
-const get = async (user_id, recipe_id) => {
+const get = async ({ user_id, recipe_id }) => {
 	const results = await db
 		.select(
 			"r.recipe_id",
@@ -36,7 +36,7 @@ const get = async (user_id, recipe_id) => {
 	return shapeRecipe(results);
 };
 
-const add = async (recipe, user_id) => {
+const add = async ({ recipe, user_id }) => {
 	let newRecipeId, category_id, instruction_id, ingredient_id;
 
 	const { recipe_title, source, categories, instructions } = recipe;
@@ -91,13 +91,15 @@ const add = async (recipe, user_id) => {
 		newRecipeId = recipe_id;
 	});
 
-	return get(newRecipeId);
+	return get({ user_id, recipe_id: newRecipeId });
 };
 
-const edit = async () => {};
+const edit = async (recipe) => {
+	return db("recipes").where({ recipe_id: recipe.recipe_id });
+};
 
-const drop = (user_id, recipe_id) => {
-	return db("recipes").where({ user_id, recipe_id }).del();
+const drop = (recipe_id) => {
+	return db("recipes").where({ recipe_id }).del();
 };
 
 module.exports = { get, add, edit, drop };

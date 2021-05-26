@@ -14,7 +14,7 @@
 		"rollbackh": "heroku run knex migrate:rollback -a secret-recipes-3",
 		"databaseh": "heroku pg:psql -a secret-recipes-3",
 		"seedh": "heroku run knex seed:run -a secret-recipes-3",
-		"heroku-postbuild": "cd client && npm i && npm run build"
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
 	},
 	"keywords": [],
 	"author": "",
@@ -38,6 +38,7 @@
 		"knex": "^0.95.6",
 		"knex-cleaner": "^1.3.1",
 		"pg": "^8.6.0",
-		"react-router-dom": "^5.2.0"
+		"react-router-dom": "^5.2.0",
+		"yup": "^0.32.9"
 	}
 }
