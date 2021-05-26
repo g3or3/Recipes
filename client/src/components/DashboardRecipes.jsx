@@ -13,7 +13,7 @@ export default function DashboardRecipes() {
 	return (
 		<>
 			<div className="recipes-container">
-				<div className="recipe-card">
+				<div className="recipe-label">
 					{recipes?.map((recipe) => (
 						<div className="individual-recipe" key={recipe.recipe_id}>
 							<h2>{recipe.recipe_title}</h2>

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import * as yup from "yup";
-import schema from "../validation/loginSchema";
+import { useDispatch } from "react-redux"
+import * as yup from 'yup'
+import schema from '../validation/loginSchema'
+import { userRegister } from "../ store/user";
 
 export default function Registration() {
   const initialFormValues = {
@@ -20,25 +22,26 @@ export default function Registration() {
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
-  const inputChange = (name, value) => {
-    yup
-      .reach(schema, name)
-      .validate(value)
-      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
-      .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
-    setFormValues({ ...formValues, [name]: value });
-  };
+	const dispatch = useDispatch()
+
+    const inputChange = (name, value) => {
+        yup.reach(schema, name)
+            .validate(value)
+            .then(() => setFormErrors({...formErrors, [name]: ''}))
+            .catch(err => setFormErrors({...formErrors, [name]: err.errors[0]}))
+        setFormValues({...formValues, [name]: value})
+    }
 
   const onChange = (evt) => {
     const { name, value } = evt.target;
     inputChange(name, value);
   };
 
-  const formSubmit = () => {};
-
-  useEffect(() => {
-    schema.isValid(formValues).then((valid) => setDisabled(!valid));
-  }, [formValues]);
+	const formSubmit = () => {};
+		dispatch(userRegister(formValues))
+    useEffect(() => {
+        schema.isValid(formValues).then(valid => setDisabled(!valid))
+    }, [formValues])
 
   return (
     <div>

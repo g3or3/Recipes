@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
+import { useDispatch } from "react-redux"
 import schema from '../validation/loginSchema'
+import { userLogin } from '../ store/user'
 
 const initialFormValues = {
     username: '',
@@ -20,6 +22,7 @@ export default function Login() {
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [disabled, setDisabled] = useState(initialDisabled)
 
+    const dispatch = useDispatch()
     const inputChange = (name, value) => {
         yup.reach(schema, name)
             .validate(value)
@@ -34,6 +37,7 @@ export default function Login() {
     }
 
     const formSubmit = () => {
+        dispatch(userLogin(formValues))
         // Add validation/URL location?
     }
 
