@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledAddRecipe = styled.div`
   display: flex;
   justify-content: center;
-  padding: 10%;
+  padding: 5% 10%;
   color: #2e2e2e;
 
   form {
@@ -13,7 +13,7 @@ const StyledAddRecipe = styled.div`
     background-color: #7c9082;
     border-radius: 12px;
     box-shadow: 0px 0px 15px #37413a;
-    width: 50%;
+    width: 60%;
   }
 
   h2 {
