@@ -4,19 +4,19 @@ import { useDispatch } from "react-redux"
 import schema from '../validation/loginSchema'
 import { userLogin } from '../ store/user'
 
+const initialFormValues = {
+    username: '',
+    password: ''
+}
+
+const initialFormErrors = {
+    username: '',
+    password: ''
+}
+
+const initialDisabled = true;
+
 export default function Login() {
-
-    const initialFormValues = {
-        username: '',
-        password: ''
-    }
-
-    const initialFormErrors = {
-        username: '',
-        password: ''
-    }
-
-    const initialDisabled = true;
 
     const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)

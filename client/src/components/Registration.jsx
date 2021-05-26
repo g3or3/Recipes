@@ -6,21 +6,21 @@ import schema from '../validation/loginSchema'
 import { userRegister } from "../ store/user";
 
 export default function Registration() {
-	const initialFormValues = {
-		username: "",
-		password: "",
-	};
+  const initialFormValues = {
+    username: "",
+    password: "",
+  };
 
-	const initialFormErrors = {
-		username: "",
-		password: "",
-	};
+  const initialFormErrors = {
+    username: "",
+    password: "",
+  };
 
-	const initialDisabled = true;
+  const initialDisabled = true;
 
-	const [formValues, setFormValues] = useState(initialFormValues);
-	const [formErrors, setFormErrors] = useState(initialFormErrors);
-	const [disabled, setDisabled] = useState(initialDisabled);
+  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
 	const dispatch = useDispatch()
 
@@ -32,10 +32,10 @@ export default function Registration() {
         setFormValues({...formValues, [name]: value})
     }
 
-	const onChange = (evt) => {
-		const { name, value } = evt.target;
-		inputChange(name, value);
-	};
+  const onChange = (evt) => {
+    const { name, value } = evt.target;
+    inputChange(name, value);
+  };
 
 	const formSubmit = () => {};
 		dispatch(userRegister(formValues))
@@ -43,39 +43,39 @@ export default function Registration() {
         schema.isValid(formValues).then(valid => setDisabled(!valid))
     }, [formValues])
 
-	return (
-		<div>
-			<form className="container" id="new-user-form" onSubmit={formSubmit}>
-                <h2>Register</h2>
-				<div className="inputs">
-					<label>
-						Username
-						<input
-							type="text"
-							name="username"
-							value={formValues.username}
-							onChange={onChange}
-						/>
-					</label>
-					<label>
-						Password
-						<input
-							type="password"
-							name="password"
-							value={formValues.password}
-							onChange={onChange}
-						/>
-					</label>
-				</div>
+  return (
+    <div>
+      <form className="container" id="new-user-form" onSubmit={formSubmit}>
+        <h2>Register</h2>
+        <div className="inputs">
+          <label>
+            Username
+            <input
+              type="text"
+              name="username"
+              value={formValues.username}
+              onChange={onChange}
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              name="password"
+              value={formValues.password}
+              onChange={onChange}
+            />
+          </label>
+        </div>
 
-				<div className="submit">
-					<button disabled={disabled}>Submit</button>
-					<div className="errors">
-						<div>{formErrors.username}</div>
-						<div>{formErrors.password}</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	);
+        <div className="submit">
+          <button disabled={disabled}>Submit</button>
+          <div className="errors">
+            <div>{formErrors.username}</div>
+            <div>{formErrors.password}</div>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
 }
