@@ -75,7 +75,7 @@ export const userRegister = (inputs) => (dispatch) => {
 	axiosWithAuth()
 		.post("/api/auth/register", inputs)
 		.then((res) => {
-			dispatch(register());
+			dispatch(register({ attempt: true }));
 			dispatch(setLoading());
 		})
 		.catch((err) => {

@@ -7,4 +7,6 @@ router.post("/register", validateBody, checkIfUserExists, authController.registe
 
 router.post("/login", validateBody, checkIfUserExists, authController.login);
 
+router.use("*", authController.notFound);
+
 module.exports = router;

@@ -3,7 +3,14 @@ const recipeSchema = require("./validation");
 
 const validateId = async (req, res, next) => {
 	const user_id = req.decoded.subject;
-	const recipe_id = req.params.id;
+	const recipe_id = parseInt(req.params.id);
+
+	if (isNaN(recipe_id))
+		return next({
+			status: 400,
+			source: "Error while fetching recipe.",
+			message: "Invalid recipe ID provided.",
+		});
 
 	const [recipe] = await Recipes.get({ user_id, recipe_id });
 

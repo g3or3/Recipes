@@ -13,4 +13,6 @@ router.put("/:id", validateId, validateBody, recipesController.update);
 
 router.delete("/:id", validateId, recipesController.remove);
 
+router.use("*", recipesController.notFound);
+
 module.exports = router;

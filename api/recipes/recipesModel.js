@@ -94,8 +94,8 @@ const add = async ({ recipe, user_id }) => {
 	return get({ user_id, recipe_id: newRecipeId });
 };
 
-const edit = async (recipe) => {
-	return db("recipes").where({ recipe_id: recipe.recipe_id });
+const edit = async ({ prevRecipe, newRecipe }) => {
+	return db("recipes").where({ recipe_id: prevRecipe.recipe_id });
 };
 
 const drop = (recipe_id) => {
