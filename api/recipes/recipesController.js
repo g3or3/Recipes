@@ -26,8 +26,13 @@ const recipesController = {
 	},
 
 	async update(req, res, next) {
+		recipe = req.body;
+
 		try {
-			const [updatedRecipe] = await Recipes.edit(req.recipe);
+			const [updatedRecipe] = await Recipes.edit({
+				prevRecipe: req.recipe,
+				newRecipe: recipe,
+			});
 			res.json(updatedRecipe);
 		} catch (err) {
 			next({ source: "Error while updating a recipe.", message: err });
@@ -38,6 +43,10 @@ const recipesController = {
 	async remove(req, res) {
 		await Recipes.drop(req.recipe.recipe_id);
 		res.json(req.recipe);
+	},
+
+	async notFound(req, res, next) {
+		next({ status: 404, message: "Resource not found." });
 	},
 };
 

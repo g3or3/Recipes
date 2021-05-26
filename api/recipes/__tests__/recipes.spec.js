@@ -45,6 +45,7 @@ const errMsg = {
 	missingCategory: "At least one category is required.",
 	missingInstructions: "Instructions is an array of one or more instruction objects.",
 	recipeNotExists: "That recipe doesn't exist.",
+	invalidRecipeId: "Invalid recipe ID provided.",
 };
 
 beforeAll(async () => {
@@ -90,9 +91,14 @@ describe("[GET] /recipes && /recipes/:id", () => {
 	});
 
 	describe("invalid recipe id", () => {
-		it("returns an error message if invalid recipe id", async () => {
+		it("returns an error message if id of recipe doesn't exist", async () => {
 			res = await request(app).get("/api/recipes/256").set(auth);
 			expect(res.body).toMatchObject({ message: errMsg.recipeNotExists });
+		});
+
+		it("returns an error message if invalid recipe id", async () => {
+			res = await request(app).get("/api/recipes/not_a_number").set(auth);
+			expect(res.body).toMatchObject({ message: errMsg.invalidRecipeId });
 		});
 	});
 });
