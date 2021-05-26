@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux"
 import * as yup from 'yup'
 import schema from '../validation/loginSchema'
+import { userRegister } from "../ store/user";
 
 export default function Registration() {
 	const initialFormValues = {
@@ -20,6 +22,8 @@ export default function Registration() {
 	const [formErrors, setFormErrors] = useState(initialFormErrors);
 	const [disabled, setDisabled] = useState(initialDisabled);
 
+	const dispatch = useDispatch()
+
     const inputChange = (name, value) => {
         yup.reach(schema, name)
             .validate(value)
@@ -34,7 +38,7 @@ export default function Registration() {
 	};
 
 	const formSubmit = () => {};
-
+		dispatch(userRegister(formValues))
     useEffect(() => {
         schema.isValid(formValues).then(valid => setDisabled(!valid))
     }, [formValues])
