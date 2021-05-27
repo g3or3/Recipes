@@ -60,6 +60,10 @@ const StyledEditRecipe = styled.div`
     display: flex;
   }
 
+  .instruction-container {
+    display: flex;
+  }
+
   button {
     padding: 1% 3%;
     border: none;
@@ -175,6 +179,12 @@ export default function EditRecipe() {
     setFormValues({ ...formValues, step: "", description: "" });
   };
 
+  const handleDeleteCategory = (ev) => {};
+
+  const handleDeleteIngredient = (evt) => {};
+
+  const handleDeleteInstruction = (evt) => {};
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
@@ -233,9 +243,15 @@ export default function EditRecipe() {
           </button>
           {categories.map((category, idx) => {
             return (
-              <div className="added">
-                <p key={idx}>{category}</p>
-                <button className="delete-button">X</button>
+              <div key={idx} className="added">
+                <p>{category}</p>
+                <button
+                  type="button"
+                  className="delete-button"
+                  onClick={handleDeleteCategory}
+                >
+                  X
+                </button>
               </div>
             );
           })}
@@ -291,12 +307,18 @@ export default function EditRecipe() {
               </button>
               {ingredients.map((ingredient, idx) => {
                 return (
-                  <div className="added">
-                    <p key={idx}>
+                  <div key={idx} className="added">
+                    <p>
                       Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
                       {ingredient.quantity}
                     </p>
-                    <button className="delete-button">X</button>
+                    <button
+                      type="button"
+                      className="delete-button"
+                      onClick={handleDeleteIngredient}
+                    >
+                      X
+                    </button>
                   </div>
                 );
               })}
@@ -310,18 +332,27 @@ export default function EditRecipe() {
             </button>
             {instructions.map((instruction, idx) => {
               return (
-                <div className="added">
-                  <div key={idx} className="instruction-container">
-                    <p>Step {instruction.step_number}</p>
-                    <p>{instruction.description}</p>
-                    {instruction.ingredients?.map((ingredient, idx) => {
-                      return (
-                        <p key={idx}>
-                          Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
-                          {ingredient.quantity}
-                        </p>
-                      );
-                    })}
+                <div key={idx} className="added">
+                  <div className="instruction-container">
+                    <div>
+                      <p>Step {instruction.step_number}</p>
+                      <p>{instruction.description}</p>
+                      {instruction.ingredients?.map((ingredient, idx) => {
+                        return (
+                          <p key={idx}>
+                            Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
+                            {ingredient.quantity}
+                          </p>
+                        );
+                      })}
+                    </div>
+                    <button
+                      type="button"
+                      className="delete-button"
+                      onClick={handleDeleteInstruction}
+                    >
+                      X
+                    </button>
                   </div>
                 </div>
               );
