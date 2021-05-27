@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const Users = require("../users");
-const buildToken = require("./buildToken");
+const buildToken = require("./utils/buildToken");
 
 const ROUNDS = process.env.ROUNDS || 8;
 
