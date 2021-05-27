@@ -39,9 +39,8 @@ export const userLogin = (inputs) => (dispatch) => {
 			dispatch(login(res.data));
 			dispatch(setLoading());
 		})
-		.catch((err) => {
+		.catch(() => {
 			dispatch(login({ attempt: false }));
-			console.log(err, { err });
 		});
 };
 
@@ -53,9 +52,8 @@ export const userRegister = (inputs) => (dispatch) => {
 			dispatch(register({ attempt: true }));
 			dispatch(setLoading());
 		})
-		.catch((err) => {
+		.catch(() => {
 			dispatch(register({ attempt: false }));
-			console.log(err, { err });
 		});
 };
 export const { register, login, logout, setLoading } = users.actions;

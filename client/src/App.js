@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import DashboardRecipes from "./components/DashboardRecipes";
 import AddRecipe from "./components/AddRecipe";
 import EditRecipe from "./components/EditRecipe";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
 	return (
@@ -13,9 +14,9 @@ function App() {
 			<Route path="/login" component={Login} />
 
 			{/* Protected Paths Below */}
-			<Route path="/recipes" component={DashboardRecipes} />
-			<Route path="/add-recipe" component={AddRecipe} />
-			<Route path="/edit-recipe/:id" component={EditRecipe} />
+			<ProtectedRoute path="/recipes" component={DashboardRecipes} />
+			<ProtectedRoute path="/add-recipe" component={AddRecipe} />
+			<ProtectedRoute path="/edit-recipe/:id" component={EditRecipe} />
 
 			<Route path="/" component={LandingPage} />
 		</Switch>
