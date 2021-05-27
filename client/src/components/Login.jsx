@@ -4,7 +4,74 @@ import { useDispatch, useSelector } from "react-redux";
 import schema from "../validation/loginSchema";
 import { userLogin } from "../ store/user";
 import { useHistory } from "react-router";
-import Loader from "react-loader-spinner";
+import styled from "styled-components";
+
+const StyledLogin = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 10%;
+  color: #2e2e2e;
+
+  .container {
+    text-align: center;
+    padding: 1%;
+    background-color: #7c9082;
+    border-radius: 12px;
+    box-shadow: 0px 0px 15px #37413a;
+    width: 50%;
+  }
+
+  h2 {
+    font-size: 3rem;
+    margin: 2% 0 3% 0;
+  }
+
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  label {
+    font-size: 1.6rem;
+    padding: 2%;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+  }
+
+  input {
+    width: 60%;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 4px;
+  }
+
+  button {
+    margin: 2%;
+    font-size: 1.4rem;
+    padding: 1% 3%;
+    border: none;
+    border-radius: 12px;
+    color: #2e2e2e;
+    background-color: #73b0cc;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2);
+    &:disabled {
+      cursor: not-allowed;
+      color: #818181;
+    }
+    &:active {
+      background-color: #558da7;
+    }
+  }
+
+  .errors {
+    font-size: 1.2rem;
+    color: #bb0000;
+    line-height: 1.2;
+  }
+`;
 
 const initialFormValues = {
   username: "",
@@ -37,16 +104,6 @@ export default function Login() {
 
   const formSubmit = (evt) => {
     evt.preventDefault();
-    render() {
-      return (
-        <Loader
-          type="Puff"
-          color="#00BFFF"
-          height={100}
-          width={100}
-          timeout={3000} //3 secs
-        />
-      );
 
     dispatch(userLogin(formValues));
     setFormValues(initialFormValues);
@@ -61,7 +118,7 @@ export default function Login() {
   }, [loginSuccess, push]);
 
   return (
-    <div>
+    <StyledLogin>
       <form className="container" id="login-form" onSubmit={formSubmit}>
         <h2>Login</h2>
         <div className="inputs">
@@ -93,6 +150,6 @@ export default function Login() {
           </div>
         </div>
       </form>
-    </div>
+    </StyledLogin>
   );
 }
