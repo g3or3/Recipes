@@ -57,6 +57,7 @@ const StyledEditRecipe = styled.div`
     width: fit-content;
     padding: 1% 3%;
     box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2);
+    display: flex;
   }
 
   button {
@@ -81,6 +82,16 @@ const StyledEditRecipe = styled.div`
     margin: 4%;
     font-size: 2rem;
     font-weight: bold;
+  }
+
+  .delete-button {
+    /* padding: 5%; */
+    margin-left: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: transparent;
+    box-shadow: none;
+    color: #2e2e2e;
   }
 `;
 
@@ -222,9 +233,10 @@ export default function EditRecipe() {
           </button>
           {categories.map((category, idx) => {
             return (
-              <p className="added" key={idx}>
-                {category}
-              </p>
+              <div className="added">
+                <p key={idx}>{category}</p>
+                <button className="delete-button">X</button>
+              </div>
             );
           })}
         </div>
@@ -279,10 +291,13 @@ export default function EditRecipe() {
               </button>
               {ingredients.map((ingredient, idx) => {
                 return (
-                  <p className="added" key={idx}>
-                    Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
-                    {ingredient.quantity}
-                  </p>
+                  <div className="added">
+                    <p key={idx}>
+                      Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
+                      {ingredient.quantity}
+                    </p>
+                    <button className="delete-button">X</button>
+                  </div>
                 );
               })}
             </div>
