@@ -1,31 +1,40 @@
 import React from "react";
-import { Spinner } from "react-bootstrap";
+import ReactLoading from "react-loading";
 
-export default class Loading extends React.Component {
-  state = {
-    loading: false,
-  };
+function Loading() {
+  const [loadData, setLoadData] = useState([]);
+  const [done, setDone] = useState(undefined);
 
-  setLoading = () => {
-    this.setState({ loading: true });
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      fetch("https://jsonplaceholder.typicode.com/posts")
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          setData(json);
+          setDone(true);
+        });
+    }, 2000);
+  }, []);
 
-  render() {
-    return (
-      <div style={{ marginTop: "60px" }}>
-        <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous"
+  return (
+    <>
+      {!done ? (
+        <ReactLoading
+          type={"bars"}
+          color={"#03fc4e"}
+          height={100}
+          width={100}
         />
-        <button className="button" onClick={this.setLoading}>
-          Login
-          {this.state.loading && (
-            <Spinner animation="border" role="status"></Spinner>
-          )}
-        </button>
-      </div>
-    );
-  }
+      ) : (
+        <ul>
+          {data.map((post) => (
+            <li key={post.id}>{post.title}</li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
 }
+
+export default Loading;
