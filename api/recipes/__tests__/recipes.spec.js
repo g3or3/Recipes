@@ -170,7 +170,7 @@ describe("[POST] /recipes", () => {
 			res = await request(app)
 				.post("/api/recipes")
 				.set(auth)
-				.send({ recipe_title: "Title", source: "Source", categories: ["category"] });
+				.send({ recipe_title: "Title", source: "Source", categories: ["Category"] });
 			expect(res.body.message).toContain(errMsg.missingInstructions);
 		});
 	});
@@ -184,7 +184,7 @@ describe("[PUT] /recipes/:id", () => {
 		recipe_id = res.body.recipe_id;
 	});
 
-	it("test", async () => {
+	it("updates a recipe successfully by its id and returns the updated recipe", async () => {
 		res = await request(app)
 			.put(`/api/recipes/${recipe_id}`)
 			.set(auth)

@@ -1,14 +1,25 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { fetchRecipes } from "../ store/recipe";
+import EmptyLandingPage from "./NoRecipes";
 
 export default function DashboardRecipes() {
 	const recipes = useSelector((state) => state.recipes.recipeList);
 	const dispatch = useDispatch();
+	const { push } = useHistory();
 
 	useEffect(() => {
 		dispatch(fetchRecipes());
 	}, [dispatch]);
+
+	const handleEdit = (id) => {
+		push(`/edit-recipe/${id}`);
+	};
+
+	if (!recipes.length) {
+		return <EmptyLandingPage />;
+	}
 
 	return (
 		<>
@@ -39,6 +50,7 @@ export default function DashboardRecipes() {
 									);
 								})}
 							</p>
+							<button onClick={() => handleEdit(recipe.recipe_id)}>Edit Recipe</button>
 						</div>
 					))}
 				</div>

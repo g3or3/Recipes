@@ -1,13 +1,10 @@
-import React from 'react'
-
-// Needs link to new recipe creation component
+import React from "react";
 
 export default function EmptyLandingPage() {
-
-    return (
-        <div className='container' id='empty'>
-            <h2>You don't have any recipes yet!</h2>
-            <a href='#'>Create your first recipe</a>
-        </div>
-    )
+	return (
+		<div className="container" id="empty">
+			<h2>You don't have any recipes yet!</h2>
+			<a href="/add-recipe">Create your first recipe</a>
+		</div>
+	);
 }

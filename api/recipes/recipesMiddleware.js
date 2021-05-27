@@ -43,7 +43,7 @@ const validateBody = async (req, res, next) => {
 				return next({
 					status: 400,
 					source,
-					message: "Instruction step number are not sequential.",
+					message: "Instruction step numbers are not sequential.",
 				});
 		}
 		next();
