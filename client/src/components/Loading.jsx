@@ -11,7 +11,7 @@ function Loading() {
         .then((response) => response.json())
         .then((json) => {
           console.log(json);
-          setData(json);
+          setLoadData(json);
           setDone(true);
         });
     }, 2000);
