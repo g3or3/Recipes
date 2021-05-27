@@ -179,11 +179,17 @@ export default function EditRecipe() {
     setFormValues({ ...formValues, step: "", description: "" });
   };
 
-  const handleDeleteCategory = (ev) => {};
+  const handleDeleteCategory = (category) => {
+    setCategories(categories.filter((c) => c !== category));
+  };
 
-  const handleDeleteIngredient = (evt) => {};
+  const handleDeleteIngredient = (ingredient) => {
+    setIngredients(ingredients.filter((i) => i !== ingredient));
+  };
 
-  const handleDeleteInstruction = (evt) => {};
+  const handleDeleteInstruction = (instruction) => {
+    setInstructions(instructions.filter((i) => i !== instruction));
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -248,7 +254,7 @@ export default function EditRecipe() {
                 <button
                   type="button"
                   className="delete-button"
-                  onClick={handleDeleteCategory}
+                  onClick={() => handleDeleteCategory(category)}
                 >
                   X
                 </button>
@@ -315,7 +321,7 @@ export default function EditRecipe() {
                     <button
                       type="button"
                       className="delete-button"
-                      onClick={handleDeleteIngredient}
+                      onClick={() => handleDeleteIngredient(ingredient)}
                     >
                       X
                     </button>
@@ -349,7 +355,7 @@ export default function EditRecipe() {
                     <button
                       type="button"
                       className="delete-button"
-                      onClick={handleDeleteInstruction}
+                      onClick={() => handleDeleteInstruction(instruction)}
                     >
                       X
                     </button>
