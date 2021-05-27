@@ -20,24 +20,31 @@ const recipesController = {
 		try {
 			const [newRecipe] = await Recipes.add({ recipe, user_id });
 			res.json(newRecipe);
-		} catch (err) {
-			next({ source: "Error while creating a new recipe.", message: err });
+		} catch {
+			next({
+				source: "Error while creating a new recipe.",
+				message: "Something went wrong in the database.",
+			});
 		}
 	},
 
 	async update(req, res, next) {
 		recipe = req.body;
+		user_id = req.decoded.subject;
 
 		try {
 			const [updatedRecipe] = await Recipes.edit({
 				prevRecipe: req.recipe,
 				newRecipe: recipe,
+				user_id,
 			});
 			res.json(updatedRecipe);
-		} catch (err) {
-			next({ source: "Error while updating a recipe.", message: err });
+		} catch {
+			next({
+				source: "Error while updating a recipe.",
+				message: "Something went wrong in the database.",
+			});
 		}
-		res.json();
 	},
 
 	async remove(req, res) {

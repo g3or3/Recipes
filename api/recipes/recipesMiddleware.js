@@ -26,14 +26,28 @@ const validateId = async (req, res, next) => {
 };
 
 const validateBody = async (req, res, next) => {
+	let source;
+
+	if (req.method === "POST") source = "Error while creating a new recipe.";
+	else if (req.method === "PUT") source = "Error while updating a recipe.";
+
 	try {
 		req.body = await recipeSchema.validateAsync(req.body, { stripUnknown: true });
+
+		for (
+			let idx = 0, stepNumber = 1;
+			stepNumber <= req.body.instructions.length;
+			idx++, stepNumber++
+		) {
+			if (req.body.instructions[idx].step_number !== stepNumber)
+				return next({
+					status: 400,
+					source,
+					message: "Instruction step number are not sequential.",
+				});
+		}
 		next();
 	} catch (err) {
-		let source;
-		if (req.method === "POST") source = "Error while creating a new recipe.";
-		else if (req.method === "PUT") source = "Error while updating a recipe.";
-
 		next({
 			status: 400,
 			source,

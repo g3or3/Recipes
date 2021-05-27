@@ -12,8 +12,8 @@ const recipe = {
 	categories: ["Lunch", "Dinner"],
 	instructions: [
 		{
-			description: "Cook shrimp.",
 			step_number: 1,
+			description: "Cook eggs",
 			ingredients: [
 				{
 					ingredient_name: "Shrimp",
@@ -22,8 +22,8 @@ const recipe = {
 			],
 		},
 		{
-			description: "Love it.",
 			step_number: 2,
+			description: "Love it.",
 			ingredients: [
 				{
 					ingredient_name: "Taco Shells",
@@ -34,6 +34,36 @@ const recipe = {
 					quantity: 3,
 				},
 			],
+		},
+	],
+};
+
+const editedRecipe = {
+	recipe_title: "Omelette",
+	source: "Grandma",
+	categories: ["Lunch", "Breakfast"],
+	instructions: [
+		{
+			step_number: 1,
+			description: "Cook eggs",
+			ingredients: [{ ingredient_name: "Eggs", quantity: 3 }],
+		},
+		{
+			step_number: 2,
+			description: "Add bacon and cheese",
+			ingredients: [
+				{ ingredient_name: "Bacon", quantity: 1 },
+				{ ingredient_name: "Cheese", quantity: 2 },
+			],
+		},
+		{
+			step_number: 3,
+			description: "Serve while hot",
+			ingredients: [{ ingredient_name: "Salt", quantity: 2 }],
+		},
+		{
+			step_number: 4,
+			description: "Enjoy with family",
 		},
 	],
 };
@@ -143,6 +173,23 @@ describe("[POST] /recipes", () => {
 				.send({ recipe_title: "Title", source: "Source", categories: ["category"] });
 			expect(res.body.message).toContain(errMsg.missingInstructions);
 		});
+	});
+});
+
+describe("[PUT] /recipes/:id", () => {
+	let recipe_id;
+
+	beforeEach(async () => {
+		res = await request(app).post("/api/recipes").set(auth).send(recipe);
+		recipe_id = res.body.recipe_id;
+	});
+
+	it("test", async () => {
+		res = await request(app)
+			.put(`/api/recipes/${recipe_id}`)
+			.set(auth)
+			.send(editedRecipe);
+		expect(res.body).toMatchObject(editedRecipe);
 	});
 });
 
