@@ -157,11 +157,15 @@ const edit = async ({ prevRecipe, newRecipe, user_id }) => {
 					for (let ingredient of newInstructions[idx].ingredients) {
 						const { ingredient_name, quantity } = ingredient;
 
-						let prevIngredientList = prevInstructions[idx].ingredients;
+						let prevIngredient, prevIngredientList;
 
-						const prevIngredient = prevIngredientList.find(
-							(i) => i.ingredient_name === ingredient_name
-						);
+						if (prevInstructions[idx].ingredients) {
+							let prevIngredientList = prevInstructions[idx].ingredients;
+							prevIngredient = prevIngredientList?.find(
+								(i) => i.ingredient_name === ingredient_name
+							);
+						}
+
 						if (prevIngredient) {
 							if (quantity !== prevIngredient.quantity) {
 								await trx("ingredients_per_instruction").update({ quantity }).where({
@@ -191,11 +195,13 @@ const edit = async ({ prevRecipe, newRecipe, user_id }) => {
 							});
 						}
 						if (curr === lengthIngredientsInInstruction)
-							for (let ingredient of prevIngredientList) {
-								const { ingredient_id, quantity } = ingredient;
-								await trx("ingredients_per_instruction")
-									.where({ instruction_id, ingredient_id, quantity })
-									.del();
+							if (prevIngredientList) {
+								for (let ingredient of prevIngredientList) {
+									const { ingredient_id, quantity } = ingredient;
+									await trx("ingredients_per_instruction")
+										.where({ instruction_id, ingredient_id, quantity })
+										.del();
+								}
 							}
 						curr++;
 					}
