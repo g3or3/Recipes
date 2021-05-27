@@ -45,15 +45,10 @@ const StyledLandingPage = styled.div`
     background-color: #73b0cc;
     cursor: pointer;
     box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2);
-    &:disabled {
-      cursor: not-allowed;
-      color: #818181;
-    }
     &:active {
       background-color: #558da7;
     }
     &:hover {
-      transition: all 0.4s ease-in-out;
       box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
     }
   }
