@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { recipeAdded } from "../ store/recipe";
 
 const StyledAddRecipe = styled.div`
   display: flex;
@@ -97,6 +99,8 @@ export default function AddRecipe() {
   const [categories, setCategories] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
+  const dispatch = useDispatch()
+
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -138,6 +142,7 @@ export default function AddRecipe() {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    dispatch(recipeAdded(formValues))
 
     const recipe = {
       recipe_title: formValues.recipe_title,

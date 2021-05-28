@@ -6,6 +6,7 @@ import DashboardRecipes from "./components/DashboardRecipes";
 import AddRecipe from "./components/AddRecipe";
 import EditRecipe from "./components/EditRecipe";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SearchBar from "./components/SearchBar";
 
 function App() {
 	return (
@@ -17,7 +18,7 @@ function App() {
 			<ProtectedRoute path="/recipes" component={DashboardRecipes} />
 			<ProtectedRoute path="/add-recipe" component={AddRecipe} />
 			<ProtectedRoute path="/edit-recipe/:id" component={EditRecipe} />
-
+			<ProtectedRoute path="/search" component={SearchBar} />
 			<Route path="/" component={LandingPage} />
 		</Switch>
 	);
