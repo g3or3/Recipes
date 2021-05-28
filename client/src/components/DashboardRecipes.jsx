@@ -10,14 +10,14 @@ export default function DashboardRecipes() {
 	const dispatch = useDispatch();
 
 
-	useEffect(() => {
-		dispatch(fetchRecipes());
-	}, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchRecipes());
+  }, [dispatch]);
 
 
-	if (!recipes.length) {
-		return <EmptyLandingPage />;
-	}
+  if (!recipes.length) {
+    return <EmptyLandingPage />;
+  }
 
 	return (
 		<>
