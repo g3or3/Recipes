@@ -324,7 +324,7 @@ const StyledEditRecipe = styled.div`
   form {
     text-align: center;
     padding: 1%;
-    background-color: #7c9082;
+    background-color: ${(props) => props.theme.primaryColor};
     border-radius: 12px;
     box-shadow: 0px 0px 15px #37413a;
     width: 60%;
@@ -381,7 +381,7 @@ const StyledEditRecipe = styled.div`
     border: none;
     border-radius: 12px;
     color: #2e2e2e;
-    background-color: #73b0cc;
+    background-color: ${(props) => props.theme.secondaryColor};
     cursor: pointer;
     box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2);
     &:active {
@@ -414,7 +414,7 @@ const StyledEditRecipe = styled.div`
   .back-button {
     width: fit-content;
     font-size: 1.2rem;
-    background-color: #964e4e;
+    background-color: ${(props) => props.theme.backButtonColor};
     margin-bottom: 2%;
     &:active {
       background-color: #773d3d;
