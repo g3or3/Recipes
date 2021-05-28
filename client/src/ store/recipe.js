@@ -40,9 +40,7 @@ export const addRecipe = (newRecipe) => (dispatch) => {
 		.then((res) => {
 			dispatch(recipeAdded(res.data));
 		})
-		.catch((err) => {
-			console.log(err, { err });
-		});
+
 };
 
 export const editRecipe = (id, recipeToEdit) => (dispatch) => {
@@ -51,9 +49,7 @@ export const editRecipe = (id, recipeToEdit) => (dispatch) => {
 		.then((res) => {
 			dispatch(recipeEdited(res.data));
 		})
-		.catch((err) => {
-			console.log(err, { err });
-		});
+
 };
 
 export const removeRecipe = (id) => (dispatch) => {
@@ -62,9 +58,7 @@ export const removeRecipe = (id) => (dispatch) => {
 		.then((res) => {
 			dispatch(recipeRemoved(res.data));
 		})
-		.catch((err) => {
-			console.log(err, { err });
-		});
+
 };
 
 export const { recipesFetched, recipeAdded, recipeEdited, recipeRemoved } =
