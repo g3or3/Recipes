@@ -21,7 +21,7 @@ module.exports = {
 						description: "Successful request with recipes array",
 						content: {
 							"application/json": {
-								schema: { $ref: "#/components/schemas/RecipeDb" },
+								schema: { $ref: "#/components/schemas/ExistingRecipe" },
 								examples: { recipes: { $ref: "#/components/examples/recipes" } },
 							},
 						},
@@ -71,7 +71,9 @@ module.exports = {
 					201: {
 						description: "Successful request with the created recipe",
 						content: {
-							"application/json": { schema: { $ref: "#/components/schemas/RecipeDb" } },
+							"application/json": {
+								schema: { $ref: "#/components/schemas/ExistingRecipe" },
+							},
 						},
 					},
 					400: {
@@ -114,7 +116,7 @@ module.exports = {
 				requestBody: {
 					required: true,
 					content: {
-						"application/json": { schema: { $ref: "#/components/schemas/RecipeSend" } },
+						"application/json": { schema: { $ref: "#/components/schemas/NewRecipe" } },
 					},
 				},
 				tags: ["Recipes"],
@@ -137,7 +139,7 @@ module.exports = {
 						description: "Successful request with returned recipe",
 						content: {
 							"application/json": {
-								schema: { $ref: "#/components/schemas/RecipeDb" },
+								schema: { $ref: "#/components/schemas/ExistingRecipe" },
 								examples: { recipe: { $ref: "#/components/examples/recipe" } },
 							},
 						},
@@ -188,7 +190,7 @@ module.exports = {
 						description: "Successful request with updated recipe",
 						content: {
 							"application/json": {
-								schema: { $ref: "#/components/schemas/RecipeDb" },
+								schema: { $ref: "#/components/schemas/ExistingRecipe" },
 								examples: { recipe: { $ref: "#/components/examples/recipe" } },
 							},
 						},
@@ -233,7 +235,7 @@ module.exports = {
 				requestBody: {
 					required: true,
 					content: {
-						"application/json": { schema: { $ref: "#/components/schemas/RecipeSend" } },
+						"application/json": { schema: { $ref: "#/components/schemas/NewRecipe" } },
 					},
 				},
 				tags: ["Recipes"],
@@ -245,7 +247,7 @@ module.exports = {
 						description: "Successful request with deleted recipe",
 						content: {
 							"application/json": {
-								schema: { $ref: "#/components/schemas/RecipeDb" },
+								schema: { $ref: "#/components/schemas/ExistingRecipe" },
 								examples: { recipe: { $ref: "#/components/examples/recipe" } },
 							},
 						},
@@ -293,7 +295,7 @@ module.exports = {
 	},
 	components: {
 		schemas: {
-			RecipeSend: {
+			NewRecipe: {
 				type: "object",
 				description: "The recipe object",
 				required: ["recipe_title, source, categories, instructions"],
@@ -343,7 +345,7 @@ module.exports = {
 					},
 				},
 			},
-			RecipeDb: {
+			ExistingRecipe: {
 				type: "object",
 				description: "The recipe object",
 				required: ["recipe_title, source, categories, instructions"],
