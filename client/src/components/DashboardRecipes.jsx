@@ -25,9 +25,8 @@ export default function DashboardRecipes() {
 	}
 
 	return (
-
 		<>
-		{/* <NavBar /> */}
+			{/* <NavBar /> */}
 			<div className="recipes-container">
 				<button onClick={() => handleAdd()}>Add Recipe</button>
 				<div className="recipe-label">
