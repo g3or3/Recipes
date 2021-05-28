@@ -283,7 +283,12 @@ export default function EditRecipe() {
           </div>
           <div></div>
         </div>
-        <button className="submit-button">Save Recipe</button>
+        <div className="submit">
+          <button className="submit-button">Save Recipe</button>
+          <button onClick={() => push("/recipes")} className="back-button">
+            Back
+          </button>
+        </div>
       </form>
     </StyledEditRecipe>
   );
@@ -372,14 +377,27 @@ const StyledEditRecipe = styled.div`
     font-size: 1.2rem;
   }
 
+  .submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .submit-button {
-    margin: 4%;
+    margin: 4% 0 2% 0;
     font-size: 2rem;
     font-weight: bold;
+    width: fit-content;
+  }
+
+  .back-button {
+    width: fit-content;
+    font-size: 1.2rem;
+    background-color: #964e4e;
+    margin-bottom: 2%;
   }
 
   .delete-button {
-    /* padding: 5%; */
     margin-left: 10px;
     font-size: 1rem;
     font-weight: bold;
