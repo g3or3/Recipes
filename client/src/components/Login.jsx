@@ -151,7 +151,9 @@ export default function Login() {
 
         <div className="submit">
           <button disabled={disabled}>Submit</button>
-          <button className="back-button">Back</button>
+          <button onClick={() => push("/")} className="back-button">
+            Back
+          </button>
           <div className="errors">
             <div>{formErrors.username}</div>
             <div>{formErrors.password}</div>
