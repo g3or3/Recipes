@@ -300,7 +300,6 @@ export default function EditRecipe() {
               );
             })}
           </div>
-          <div></div>
         </div>
         <div className="submit">
           <button className="submit-button" disabled={disabledSubmit}>
