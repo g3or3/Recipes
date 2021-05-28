@@ -14,7 +14,7 @@
 		"rollbackh": "heroku run knex migrate:rollback -a secret-recipes-3",
 		"databaseh": "heroku pg:psql -a secret-recipes-3",
 		"seedh": "heroku run knex seed:run -a secret-recipes-3",
-		"heroku-postbuild": "set USE_NPM_INSTALL=true set NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+		"heroku-postbuild": "USE_NPM_INSTALL=true NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
 	},
 	"engines": {
 		"node": "14.15.5",
