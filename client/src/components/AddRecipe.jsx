@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import { addRecipe } from "../store/recipe";
+
 
 const initialFormValues = {
 	recipe_title: "",
@@ -80,6 +82,10 @@ export default function AddRecipe() {
 
 		push("/recipes");
 	};
+
+
+
+
 
 	return (
 		<StyledAddRecipe className="recipe-edit">
@@ -235,6 +241,7 @@ const StyledAddRecipe = styled.div`
 		margin: 4%;
 	}
 
+
 	label {
 		font-size: 1.6rem;
 		padding: 2% 2% 2% 6%;
@@ -242,6 +249,7 @@ const StyledAddRecipe = styled.div`
 		justify-content: space-between;
 		width: 90%;
 	}
+
 
 	input {
 		width: 60%;
