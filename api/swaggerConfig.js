@@ -242,7 +242,7 @@ module.exports = {
 				description: "Deletes a recipe by its id.",
 				responses: {
 					200: {
-						description: "Successful request with updated recipe",
+						description: "Successful request with deleted recipe",
 						content: {
 							"application/json": {
 								schema: { $ref: "#/components/schemas/RecipeDb" },
