@@ -28,7 +28,7 @@ export default function DashboardRecipes() {
 		<div className="recipes-container">
 			<button onClick={() => handleAdd()}>Add Recipe</button>
 			<div className="recipe-label">
-				{recipes?.map((recipe) => (
+				{recipes.map((recipe) => (
 					<div className="individual-recipe" key={recipe.recipe_id}>
 						<RecipeDisplay recipe={recipe} />
 					</div>
