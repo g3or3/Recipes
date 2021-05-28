@@ -6,18 +6,16 @@ import RecipeDisplay from "./RecipeDisplayCard";
 
 export default function DashboardRecipes() {
 	const recipes = useSelector((state) => state.recipes.recipeList);
-  const [active, setActive] = useState(false);
+	const [active, setActive] = useState(false);
 	const dispatch = useDispatch();
 
+	useEffect(() => {
+		dispatch(fetchRecipes());
+	}, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchRecipes());
-  }, [dispatch]);
-
-
-  if (!recipes.length) {
-    return <EmptyLandingPage />;
-  }
+	if (!recipes.length) {
+		return <EmptyLandingPage />;
+	}
 
 	return (
 		<>
@@ -26,8 +24,7 @@ export default function DashboardRecipes() {
 					{recipes?.map((recipe) => (
 						<div className="individual-recipe" key={recipe.recipe_id}>
 							<h1 onClick={() => setActive(!active)}>{recipe.recipe_title}</h1>
-							{active && <RecipeDisplay/>}
-							
+							{active && <RecipeDisplay />}
 						</div>
 					))}
 				</div>
