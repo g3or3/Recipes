@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRecipes } from "../ store/recipe";
+import { useHistory } from "react-router";
+import { fetchRecipes } from "../store/recipe";
 import EmptyLandingPage from "./NoRecipes";
 import RecipeDisplay from "./RecipeDisplayCard";
 
 export default function DashboardRecipes() {
 	const recipes = useSelector((state) => state.recipes.recipeList);
-	const [active, setActive] = useState(false);
+
 	const dispatch = useDispatch();
+
+	const { push } = useHistory();
 
 	useEffect(() => {
 		dispatch(fetchRecipes());
 	}, [dispatch]);
+
+	const handleAdd = () => {
+		push("/add-recipe");
+	};
 
 	if (!recipes.length) {
 		return <EmptyLandingPage />;
@@ -20,11 +27,11 @@ export default function DashboardRecipes() {
 	return (
 		<>
 			<div className="recipes-container">
+				<button onClick={() => handleAdd()}>Add Recipe</button>
 				<div className="recipe-label">
 					{recipes?.map((recipe) => (
 						<div className="individual-recipe" key={recipe.recipe_id}>
-							<h1 onClick={() => setActive(!active)}>{recipe.recipe_title}</h1>
-							{active && <RecipeDisplay />}
+							<RecipeDisplay recipe={recipe} />
 						</div>
 					))}
 				</div>
