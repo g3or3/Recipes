@@ -3,10 +3,18 @@ const Recipes = require("./recipesModel");
 let recipe, user_id;
 
 const recipesController = {
-	async getAll(req, res) {
+	async getAll(req, res, next) {
 		user_id = req.decoded.subject;
 
-		res.json(await Recipes.get({ user_id }));
+		try {
+			res.json(await Recipes.get({ user_id }));
+		} catch {
+			next({
+				status: 400,
+				source: "Error while fetching recipes.",
+				message: "Something went wrong in the database.",
+			});
+		}
 	},
 
 	async getById(req, res) {
@@ -19,7 +27,7 @@ const recipesController = {
 
 		try {
 			const [newRecipe] = await Recipes.add({ recipe, user_id });
-			res.json(newRecipe);
+			res.status(201).json(newRecipe);
 		} catch {
 			next({
 				source: "Error while creating a new recipe.",
@@ -47,9 +55,17 @@ const recipesController = {
 		}
 	},
 
-	async remove(req, res) {
-		await Recipes.drop(req.recipe.recipe_id);
-		res.json(req.recipe);
+	async remove(req, res, next) {
+		try {
+			await Recipes.drop(req.recipe.recipe_id);
+			res.json(req.recipe);
+		} catch {
+			next({
+				status: 400,
+				source: "Error while deleting a recipe.",
+				message: "Something went wrong in the database.",
+			});
+		}
 	},
 
 	async notFound(req, res, next) {
