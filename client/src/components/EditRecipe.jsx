@@ -22,6 +22,8 @@ export default function EditRecipe() {
   const [instructions, setInstructions] = useState([]);
   const [disabledCategory, setDisabledCategory] = useState(true);
   const [disabledIngredient, setDisabledIngredient] = useState(true);
+  const [disabledInstruction, setDisabledInstruction] = useState(true);
+  const [disabledSubmit, setDisabledSubmit] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -56,6 +58,22 @@ export default function EditRecipe() {
       setDisabledIngredient(true);
     } else {
       setDisabledIngredient(false);
+    }
+  }, [formValues]);
+
+  useEffect(() => {
+    if (formValues.description === "") {
+      setDisabledInstruction(true);
+    } else {
+      setDisabledInstruction(false);
+    }
+  }, [formValues]);
+
+  useEffect(() => {
+    if (formValues.recipe_title === "" || formValues.source === "") {
+      setDisabledSubmit(true);
+    } else {
+      setDisabledSubmit(false);
     }
   }, [formValues]);
 
@@ -248,6 +266,7 @@ export default function EditRecipe() {
             <button
               type="button"
               className="add-button"
+              disabled={disabledInstruction}
               onClick={handleAddInstruction}
             >
               Add Instruction
@@ -284,7 +303,9 @@ export default function EditRecipe() {
           <div></div>
         </div>
         <div className="submit">
-          <button className="submit-button">Save Recipe</button>
+          <button className="submit-button" disabled={disabledSubmit}>
+            Save Recipe
+          </button>
           <button onClick={() => push("/recipes")} className="back-button">
             Back
           </button>
