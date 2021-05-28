@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRecipes } from "../ store/recipe";
+import NavBar from "./NavBar";
 import EmptyLandingPage from "./NoRecipes";
 import RecipeDisplay from "./RecipeDisplayCard";
 
@@ -20,7 +21,9 @@ export default function DashboardRecipes() {
 	}
 
 	return (
+
 		<>
+		{/* <NavBar /> */}
 			<div className="recipes-container">
 				<div className="recipe-label">
 					{recipes?.map((recipe) => (
