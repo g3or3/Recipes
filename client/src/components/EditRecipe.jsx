@@ -250,7 +250,7 @@ export default function EditRecipe() {
 										<div>
 											<p>Step {instruction.step_number}</p>
 											<p>{instruction.description}</p>
-											{instruction.ingredients?.map((ingredient, idx) => {
+											{instruction.ingredients.map((ingredient, idx) => {
 												return (
 													<p key={idx}>
 														Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
