@@ -54,7 +54,11 @@ export default function EditRecipe() {
   }, [formValues]);
 
   useEffect(() => {
-    if (formValues.description === "") {
+    if (
+      formValues.description === "" ||
+      formValues.ingredientName === "" ||
+      formValues.ingredientQuantity === ""
+    ) {
       setDisabledIngredient(true);
     } else {
       setDisabledIngredient(false);
