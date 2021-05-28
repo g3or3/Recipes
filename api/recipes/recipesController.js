@@ -39,8 +39,7 @@ const recipesController = {
 				user_id,
 			});
 			res.json(updatedRecipe);
-		} catch (err) {
-			console.log(err);
+		} catch {
 			next({
 				source: "Error while updating a recipe.",
 				message: "Something went wrong in the database.",

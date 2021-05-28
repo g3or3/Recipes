@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { fetchRecipes } from "../store/recipe";
+import { fetchRecipes, removeRecipe } from "../store/recipe";
 
 export default function RecipeDisplay({ recipe }) {
 	const [active, setActive] = useState(false);
@@ -14,6 +14,10 @@ export default function RecipeDisplay({ recipe }) {
 
 	const handleEdit = (id) => {
 		push(`/edit-recipe/${id}`);
+	};
+
+	const handleDelete = (id) => {
+		dispatch(removeRecipe(id));
 	};
 
 	return (
@@ -44,6 +48,7 @@ export default function RecipeDisplay({ recipe }) {
 						);
 					})}
 					<button onClick={() => handleEdit(recipe.recipe_id)}>Edit Recipe</button>
+					<button onClick={() => handleDelete(recipe.recipe_id)}>Delete Recipe</button>
 				</div>
 			)}
 		</div>
