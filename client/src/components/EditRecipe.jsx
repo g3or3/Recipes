@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
+import { useDispatch } from "react-redux";
 import { axiosWithAuth } from "../auth/axiosWithAuth";
+import { editRecipe } from "../store/recipe";
+import styled from "styled-components";
 
 const initialFormValues = {
 	recipe_title: "",
@@ -19,6 +22,9 @@ export default function EditRecipe() {
 	const [instructions, setInstructions] = useState([]);
 	const [disabled, setDisabled] = useState(true);
 
+	const dispatch = useDispatch();
+
+	const { push } = useHistory();
 	const { id } = useParams();
 
 	useEffect(() => {
@@ -26,7 +32,7 @@ export default function EditRecipe() {
 			try {
 				const { data } = await axiosWithAuth().get(`api/recipes/${id}`);
 				const { recipe_title, source, categories, instructions } = data;
-				console.log(data);
+
 				setFormValues((prev) => ({ ...prev, recipe_title, source }));
 				setCategories(categories);
 				setInstructions(instructions);
@@ -82,6 +88,18 @@ export default function EditRecipe() {
 		setFormValues({ ...formValues, step: "", description: "" });
 	};
 
+	const handleDeleteCategory = (category) => {
+		setCategories(categories.filter((c) => c !== category));
+	};
+
+	const handleDeleteIngredient = (ingredient) => {
+		setIngredients(ingredients.filter((i) => i !== ingredient));
+	};
+
+	const handleDeleteInstruction = (instruction) => {
+		setInstructions(instructions.filter((i) => i !== instruction));
+	};
+
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
 
@@ -91,15 +109,19 @@ export default function EditRecipe() {
 			categories,
 			instructions,
 		};
-		console.log(recipe);
+
+		dispatch(editRecipe(id, recipe));
+
 		setFormValues(initialFormValues);
 		setCategories([]);
 		setInstructions([]);
 		setIngredients([]);
+
+		push("/recipes");
 	};
 
 	return (
-		<div className="recipe-edit">
+		<StyledEditRecipe className="recipe-edit">
 			<form onSubmit={handleSubmit}>
 				<h2>Edit Recipe</h2>
 				<div className="recipe-info">
@@ -131,11 +153,22 @@ export default function EditRecipe() {
 							onChange={handleChange}
 						/>
 					</label>
-					<button type="button" onClick={handleAddCategory}>
+					<button type="button" className="add-button" onClick={handleAddCategory}>
 						Add Category
 					</button>
 					{categories.map((category, idx) => {
-						return <p key={idx}>{category}</p>;
+						return (
+							<div key={idx} className="added">
+								<p>{category}</p>
+								<button
+									type="button"
+									className="delete-button"
+									onClick={() => handleDeleteCategory(category)}
+								>
+									X
+								</button>
+							</div>
+						);
 					})}
 				</div>
 
@@ -179,42 +212,163 @@ export default function EditRecipe() {
 									onChange={handleChange}
 								/>
 							</label>
-							<button disabled={disabled} type="button" onClick={handleAddIngredient}>
+							<button
+								disabled={disabled}
+								type="button"
+								className="add-button"
+								onClick={handleAddIngredient}
+							>
 								Add Ingredient
 							</button>
 							{ingredients.map((ingredient, idx) => {
 								return (
-									<p key={idx}>
-										Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
-										{ingredient.quantity}
-									</p>
+									<div key={idx} className="added">
+										<p>
+											Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
+											{ingredient.quantity}
+										</p>
+										<button
+											type="button"
+											className="delete-button"
+											onClick={() => handleDeleteIngredient(ingredient)}
+										>
+											X
+										</button>
+									</div>
 								);
 							})}
 						</div>
-						<button type="button" onClick={handleAddInstruction}>
+						<button type="button" className="add-button" onClick={handleAddInstruction}>
 							Add Instruction
 						</button>
 						{instructions.map((instruction, idx) => {
 							return (
-								<div key={idx} className="instruction-container">
-									<p>Step {instruction.step_number}</p>
-									<p>{instruction.description}</p>
-									{instruction.ingredients?.map((ingredient, idx) => {
-										return (
-											<p key={idx}>
-												Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
-												{ingredient.quantity}
-											</p>
-										);
-									})}
+								<div key={idx} className="added">
+									<div className="instruction-container">
+										<div>
+											<p>Step {instruction.step_number}</p>
+											<p>{instruction.description}</p>
+											{instruction.ingredients?.map((ingredient, idx) => {
+												return (
+													<p key={idx}>
+														Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
+														{ingredient.quantity}
+													</p>
+												);
+											})}
+										</div>
+										<button
+											type="button"
+											className="delete-button"
+											onClick={() => handleDeleteInstruction(instruction)}
+										>
+											X
+										</button>
+									</div>
 								</div>
 							);
 						})}
 					</div>
 					<div></div>
 				</div>
-				<button>Save Recipe</button>
+				<button className="submit-button">Save Recipe</button>
 			</form>
-		</div>
+		</StyledEditRecipe>
 	);
 }
+
+const StyledEditRecipe = styled.div`
+	display: flex;
+	justify-content: center;
+	padding: 5% 10%;
+	color: #2e2e2e;
+
+	form {
+		text-align: center;
+		padding: 1%;
+		background-color: #7c9082;
+		border-radius: 12px;
+		box-shadow: 0px 0px 15px #37413a;
+		width: 60%;
+	}
+
+	h2 {
+		font-size: 3rem;
+		margin: 3% 0 5% 0;
+	}
+
+	h3 {
+		font-size: 2rem;
+		text-align: left;
+		margin: 4%;
+	}
+
+	label {
+		font-size: 1.6rem;
+		padding: 2% 2% 2% 6%;
+		display: flex;
+		justify-content: space-between;
+		width: 90%;
+	}
+
+	input {
+		width: 60%;
+		font-size: 1.2rem;
+		border: none;
+		border-radius: 4px;
+	}
+
+	p {
+		font-size: 1.2rem;
+		font-style: italic;
+		line-height: 1.4;
+	}
+
+	.added {
+		margin: 2% auto;
+		background-color: rgb(255, 255, 255, 0.1);
+		border-radius: 12px;
+		width: fit-content;
+		padding: 1% 3%;
+		box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2);
+		display: flex;
+	}
+
+	.instruction-container {
+		display: flex;
+	}
+
+	button {
+		padding: 1% 3%;
+		border: none;
+		border-radius: 12px;
+		color: #2e2e2e;
+		background-color: #73b0cc;
+		cursor: pointer;
+		box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2);
+		&:active {
+			background-color: #558da7;
+		}
+	}
+
+	.add-button {
+		margin: 4% 0 1% 0;
+		font-size: 1.2rem;
+	}
+
+	.submit-button {
+		margin: 4%;
+		font-size: 2rem;
+		font-weight: bold;
+	}
+
+	.delete-button {
+		/* padding: 5%; */
+		margin-left: 10px;
+		font-size: 1rem;
+		font-weight: bold;
+		background-color: transparent;
+		box-shadow: none;
+		color: #2e2e2e;
+	}
+`;
