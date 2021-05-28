@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import { addRecipe } from "../store/recipe";
+import NavBar from "./NavBar";
 
 
 const initialFormValues = {
@@ -88,6 +89,8 @@ export default function AddRecipe() {
 
 
 	return (
+		<div>
+		<NavBar />
 		<StyledAddRecipe className="recipe-edit">
 			<form onSubmit={handleSubmit}>
 				<h2>Add Recipe</h2>
@@ -212,6 +215,7 @@ export default function AddRecipe() {
 				<button className="submit-button">Submit Recipe</button>
 			</form>
 		</StyledAddRecipe>
+		</div>
 	);
 }
 

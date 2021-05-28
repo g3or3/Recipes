@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRecipes } from "../store/recipe";
+import NavBar from "./NavBar";
 
 function SearchBar() {
 	const recipes = useSelector((state) => state.recipes.recipeList);
@@ -13,6 +14,8 @@ function SearchBar() {
 	}, [dispatch]);
 
 	return (
+		<div>
+			<NavBar />
 		<div className="searchbar">
 			<input
 				type="text"
@@ -21,7 +24,7 @@ function SearchBar() {
 					setSearch(e.target.value);
 				}}
 			/>
-			{/* {recipes
+			{recipes
 				.filter((val) => {
 					if (search === "") {
 						return val;
@@ -35,7 +38,8 @@ function SearchBar() {
 							<h1>{recipe.recipe_title}</h1>
 						</div>
 					);
-				})} */}
+				})}
+		</div>
 		</div>
 	);
 }

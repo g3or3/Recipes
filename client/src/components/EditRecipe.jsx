@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { axiosWithAuth } from "../auth/axiosWithAuth";
 import { editRecipe } from "../store/recipe";
 import styled from "styled-components";
+import NavBar from "./NavBar";
 
 const initialFormValues = {
 	recipe_title: "",
@@ -121,6 +122,8 @@ export default function EditRecipe() {
 	};
 
 	return (
+		<div>
+			<NavBar />
 		<StyledEditRecipe className="recipe-edit">
 			<form onSubmit={handleSubmit}>
 				<h2>Edit Recipe</h2>
@@ -275,6 +278,7 @@ export default function EditRecipe() {
 				<button className="submit-button">Save Recipe</button>
 			</form>
 		</StyledEditRecipe>
+		</div>
 	);
 }
 

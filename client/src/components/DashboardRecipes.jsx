@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { fetchRecipes } from "../store/recipe";
+import NavBar from "./NavBar";
 import EmptyLandingPage from "./NoRecipes";
 import RecipeDisplay from "./RecipeDisplayCard";
 
@@ -25,6 +26,8 @@ export default function DashboardRecipes() {
 	}
 
 	return (
+		<div>
+			<NavBar />
 		<div className="recipes-container">
 			<button onClick={() => handleAdd()}>Add Recipe</button>
 			<div className="recipe-label">
@@ -34,6 +37,7 @@ export default function DashboardRecipes() {
 					</div>
 				))}
 			</div>
+		</div>
 		</div>
 	);
 }
