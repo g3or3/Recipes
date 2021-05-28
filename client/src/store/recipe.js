@@ -39,17 +39,20 @@ export const addRecipe = (newRecipe) => (dispatch) => {
 		.post("/api/recipes", newRecipe)
 		.then((res) => {
 			dispatch(recipeAdded(res.data));
-		})
-
+		});
 };
 
-export const editRecipe = (id, recipeToEdit) => (dispatch) => {
+export const editRecipe = (id, editedRecipe) => (dispatch) => {
 	axiosWithAuth()
-		.put(`/api/recipes/${id}`, recipeToEdit)
+		.put(`/api/recipes/${id}`, editedRecipe)
 		.then((res) => {
 			dispatch(recipeEdited(res.data));
+			console.log("test");
 		})
-
+		.catch((err) => {
+			console.log({ err });
+			console.log("testing");
+		});
 };
 
 export const removeRecipe = (id) => (dispatch) => {
@@ -57,8 +60,7 @@ export const removeRecipe = (id) => (dispatch) => {
 		.delete(`/api/recipes/${id}`)
 		.then((res) => {
 			dispatch(recipeRemoved(res.data));
-		})
-
+		});
 };
 
 export const { recipesFetched, recipeAdded, recipeEdited, recipeRemoved } =
