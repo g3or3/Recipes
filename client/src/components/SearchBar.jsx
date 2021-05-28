@@ -21,7 +21,7 @@ function SearchBar() {
 					setSearch(e.target.value);
 				}}
 			/>
-			{recipes
+			{/* {recipes
 				.filter((val) => {
 					if (search === "") {
 						return val;
@@ -35,7 +35,7 @@ function SearchBar() {
 							<h1>{recipe.recipe_title}</h1>
 						</div>
 					);
-				})}
+				})} */}
 		</div>
 	);
 }
