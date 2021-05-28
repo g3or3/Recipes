@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
@@ -20,9 +20,45 @@ export default function AddRecipe() {
   const [categories, setCategories] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
+  const [disabledCategory, setDisabledCategory] = useState(true);
+  const [disabledIngredient, setDisabledIngredient] = useState(true);
+  const [disabledInstruction, setDisabledInstruction] = useState(true);
+  const [disabledSubmit, setDisabledSubmit] = useState(true);
 
   const dispatch = useDispatch();
   const { push } = useHistory();
+
+  useEffect(() => {
+    if (formValues.category === "") {
+      setDisabledCategory(true);
+    } else {
+      setDisabledCategory(false);
+    }
+  }, [formValues]);
+
+  useEffect(() => {
+    if (formValues.description === "" || formValues.ingredientName === "") {
+      setDisabledIngredient(true);
+    } else {
+      setDisabledIngredient(false);
+    }
+  }, [formValues]);
+
+  useEffect(() => {
+    if (formValues.description === "") {
+      setDisabledInstruction(true);
+    } else {
+      setDisabledInstruction(false);
+    }
+  }, [formValues]);
+
+  useEffect(() => {
+    if (formValues.recipe_title === "" || formValues.source === "") {
+      setDisabledSubmit(true);
+    } else {
+      setDisabledSubmit(false);
+    }
+  }, [formValues]);
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -60,6 +96,18 @@ export default function AddRecipe() {
     ]);
     setIngredients([]);
     setFormValues({ ...formValues, step: "", description: "" });
+  };
+
+  const handleDeleteCategory = (category) => {
+    setCategories(categories.filter((c) => c !== category));
+  };
+
+  const handleDeleteIngredient = (ingredient) => {
+    setIngredients(ingredients.filter((i) => i !== ingredient));
+  };
+
+  const handleDeleteInstruction = (instruction) => {
+    setInstructions(instructions.filter((i) => i !== instruction));
   };
 
   const handleSubmit = (evt) => {
@@ -120,15 +168,23 @@ export default function AddRecipe() {
           <button
             type="button"
             className="add-button"
+            disabled={disabledCategory}
             onClick={handleAddCategory}
           >
             Add Category
           </button>
           {categories.map((category, idx) => {
             return (
-              <p className="added" key={idx}>
-                {category}
-              </p>
+              <div key={idx} className="added">
+                <p>{category}</p>
+                <button
+                  type="button"
+                  className="delete-button"
+                  onClick={() => handleDeleteCategory(category)}
+                >
+                  X
+                </button>
+              </div>
             );
           })}
         </div>
@@ -136,15 +192,6 @@ export default function AddRecipe() {
         <div className="instructions">
           <h3>Instructions</h3>
           <div className="steps">
-            <label>
-              Step Number
-              <input
-                type="text"
-                name="step"
-                value={formValues.step}
-                onChange={handleChange}
-              />
-            </label>
             <label>
               Description
               <input
@@ -176,47 +223,75 @@ export default function AddRecipe() {
               <button
                 type="button"
                 className="add-button"
+                disabled={disabledIngredient}
                 onClick={handleAddIngredient}
               >
                 Add Ingredient
               </button>
               {ingredients.map((ingredient, idx) => {
                 return (
-                  <p className="added" key={idx}>
-                    Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
-                    {ingredient.quantity}
-                  </p>
+                  <div key={idx} className="added">
+                    <p>
+                      Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
+                      {ingredient.quantity}
+                    </p>
+                    <button
+                      type="button"
+                      className="delete-button"
+                      onClick={() => handleDeleteIngredient(ingredient)}
+                    >
+                      X
+                    </button>
+                  </div>
                 );
               })}
             </div>
             <button
               type="button"
               className="add-button"
+              disabled={disabledInstruction}
               onClick={handleAddInstruction}
             >
               Add Instruction
             </button>
             {instructions.map((instruction, idx) => {
               return (
-                <div className="added">
-                  <div key={idx} className="instruction-container">
-                    <p>Step {instruction.step_number}</p>
-                    <p>{instruction.description}</p>
-                    {instruction.ingredients.map((ingredient, idx) => {
-                      return (
-                        <p key={idx}>
-                          Ingredient: {ingredient.ingredient_name}, Quantity:{" "}
-                          {ingredient.quantity}
-                        </p>
-                      );
-                    })}
+                <div key={idx} className="added">
+                  <div className="instruction-container">
+                    <div>
+                      <p>Step {instructions.indexOf(instruction) + 1}</p>
+                      <p>{instruction.description}</p>
+                      {instruction.ingredients &&
+                        instruction.ingredients.map((ingredient, idx) => {
+                          return (
+                            <p key={idx}>
+                              Ingredient: {ingredient.ingredient_name},
+                              Quantity: {ingredient.quantity}
+                            </p>
+                          );
+                        })}
+                    </div>
+                    <button
+                      type="button"
+                      className="delete-button"
+                      onClick={() => handleDeleteInstruction(instruction)}
+                    >
+                      X
+                    </button>
                   </div>
                 </div>
               );
             })}
           </div>
         </div>
-        <button className="submit-button">Submit Recipe</button>
+        <div className="submit">
+          <button className="submit-button" disabled={disabledSubmit}>
+            Save Recipe
+          </button>
+          <button onClick={() => push("/recipes")} className="back-button">
+            Back
+          </button>
+        </div>
       </form>
     </StyledAddRecipe>
   );
@@ -276,6 +351,11 @@ const StyledAddRecipe = styled.div`
     width: fit-content;
     padding: 1% 3%;
     box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2);
+    display: flex;
+  }
+
+  .instruction-container {
+    display: flex;
   }
 
   button {
@@ -289,6 +369,10 @@ const StyledAddRecipe = styled.div`
     &:active {
       background-color: #558da7;
     }
+    &:disabled {
+      cursor: not-allowed;
+      color: #818181;
+    }
   }
 
   .add-button {
@@ -296,9 +380,35 @@ const StyledAddRecipe = styled.div`
     font-size: 1.2rem;
   }
 
+  .submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .submit-button {
-    margin: 4%;
+    margin: 2% 0;
     font-size: 2rem;
     font-weight: bold;
+    width: fit-content;
+  }
+
+  .back-button {
+    width: fit-content;
+    font-size: 1.2rem;
+    background-color: #964e4e;
+    margin-bottom: 2%;
+    &:active {
+      background-color: #773d3d;
+    }
+  }
+
+  .delete-button {
+    margin-left: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: transparent;
+    box-shadow: none;
+    color: #2e2e2e;
   }
 `;
