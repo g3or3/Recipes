@@ -384,7 +384,7 @@ const StyledEditRecipe = styled.div`
   }
 
   .submit-button {
-    margin: 4% 0 2% 0;
+    margin: 2% 0;
     font-size: 2rem;
     font-weight: bold;
     width: fit-content;
@@ -395,6 +395,9 @@ const StyledEditRecipe = styled.div`
     font-size: 1.2rem;
     background-color: #964e4e;
     margin-bottom: 2%;
+    &:active {
+      background-color: #773d3d;
+    }
   }
 
   .delete-button {
