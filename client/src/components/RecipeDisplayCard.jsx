@@ -17,7 +17,7 @@ export default function RecipeDisplay({ recipe }) {
 	};
 
 	return (
-		<>
+		<div>
 			<h1 onClick={() => setActive(!active)}>{recipe.recipe_title}</h1>
 			{active && (
 				<div className="individual-recipe">
@@ -46,6 +46,6 @@ export default function RecipeDisplay({ recipe }) {
 					<button onClick={() => handleEdit(recipe.recipe_id)}>Edit Recipe</button>
 				</div>
 			)}
-		</>
+		</div>
 	);
 }
