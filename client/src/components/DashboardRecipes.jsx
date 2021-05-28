@@ -25,17 +25,15 @@ export default function DashboardRecipes() {
 	}
 
 	return (
-		<>
-			<div className="recipes-container">
-				<button onClick={() => handleAdd()}>Add Recipe</button>
-				<div className="recipe-label">
-					{recipes?.map((recipe) => (
-						<div className="individual-recipe" key={recipe.recipe_id}>
-							<RecipeDisplay recipe={recipe} />
-						</div>
-					))}
-				</div>
+		<div className="recipes-container">
+			<button onClick={() => handleAdd()}>Add Recipe</button>
+			<div className="recipe-label">
+				{recipes?.map((recipe) => (
+					<div className="individual-recipe" key={recipe.recipe_id}>
+						<RecipeDisplay recipe={recipe} />
+					</div>
+				))}
 			</div>
-		</>
+		</div>
 	);
 }
