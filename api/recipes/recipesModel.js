@@ -173,7 +173,7 @@ const edit = async ({ prevRecipe, newRecipe, user_id }) => {
 									instruction_id,
 								});
 							}
-							prevIngredientList = prevIngredientList.filter(
+							prevIngredientList = prevIngredientList?.filter(
 								(i) => i.ingredient_name !== prevIngredient.ingredient_name
 							);
 						} else {

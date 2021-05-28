@@ -1,38 +1,34 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { logout } from "../ store/user"
+import { logout } from "../store/user";
 
 function NavBar() {
-  const dispatch = useDispatch()
-  const {push} = useHistory()
+	const dispatch = useDispatch();
+	const { push } = useHistory();
 
-  const handleClick = (e) => {
+	const handleClick = (e) => {
 		e.persist();
 		if (e.target.name === "addRecipe") {
 			push("/add-recipe");
 		} else if (e.target.name === "logout-button") {
-			dispatch(logout())
+			dispatch(logout());
 			push("/login");
+		}
+		return (
+			<div className="navbar">
+				<button className="addRecipe" onClick={handleClick}>
+					Add Recipe
+				</button>
 
-	};
-  return (
-    <div className="navbar">
-      <button
-				className="addRecipe"
-				onClick={handleClick}
-			>
-				Add Recipe
-			</button>
-
-			{/* <button
+				{/* <button
 				onClick={handleClick}
 				className="logout-button"
 			>
 				Logout
 			</button> */}
-    </div>
-  )
+			</div>
+		);
+	};
 }
-}
-export default NavBar
+export default NavBar;

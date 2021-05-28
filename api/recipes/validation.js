@@ -57,6 +57,8 @@ const recipeSchema = Joi.object({
 									}),
 							})
 						)
+						.optional()
+						.allow(null)
 						.unique("ingredient_name")
 						.message("No duplicate ingredients."),
 					step_number: Joi.number().positive().required(),

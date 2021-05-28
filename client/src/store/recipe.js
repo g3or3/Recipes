@@ -47,11 +47,9 @@ export const editRecipe = (id, editedRecipe) => (dispatch) => {
 		.put(`/api/recipes/${id}`, editedRecipe)
 		.then((res) => {
 			dispatch(recipeEdited(res.data));
-			console.log("test");
 		})
 		.catch((err) => {
 			console.log({ err });
-			console.log("testing");
 		});
 };
 
