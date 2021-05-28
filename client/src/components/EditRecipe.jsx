@@ -110,6 +110,8 @@ export default function EditRecipe() {
 			instructions,
 		};
 
+		console.log(recipe);
+
 		dispatch(editRecipe(id, recipe));
 
 		setFormValues(initialFormValues);
