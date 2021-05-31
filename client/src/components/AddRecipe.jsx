@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import { addRecipe } from "../store/recipe";
+import NavBar from "./NavBar";
 
 const initialFormValues = {
   recipe_title: "",
@@ -16,6 +17,7 @@ const initialFormValues = {
 };
 
 export default function AddRecipe() {
+  
   const [formValues, setFormValues] = useState(initialFormValues);
   const [categories, setCategories] = useState([]);
   const [ingredients, setIngredients] = useState([]);

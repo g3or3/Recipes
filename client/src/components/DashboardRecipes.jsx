@@ -2,45 +2,45 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { fetchRecipes } from "../store/recipe";
+import NavBar from "./NavBar";
 import EmptyLandingPage from "./NoRecipes";
 import RecipeDisplay from "./RecipeDisplayCard";
 import styled from "styled-components";
 
 export default function DashboardRecipes() {
-  const recipes = useSelector((state) => state.recipes.recipeList);
+	const recipes = useSelector((state) => state.recipes.recipeList);
 
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  const { push } = useHistory();
+	const { push } = useHistory();
 
-  useEffect(() => {
-    dispatch(fetchRecipes());
-  }, [dispatch]);
+	useEffect(() => {
+		dispatch(fetchRecipes());
+	}, [dispatch]);
 
-  const handleAdd = () => {
-    push("/add-recipe");
-  };
+	const handleAdd = () => {
+		push("/add-recipe");
+	};
 
-  if (!recipes.length) {
-    return <EmptyLandingPage />;
-  }
+	if (!recipes.length) {
+		return <EmptyLandingPage />;
+	}
 
-  return (
-    <StyledDashboard>
-      <div className="recipes-container">
-        <button className="add-button" onClick={() => handleAdd()}>
-          Add Recipe
-        </button>
-        <div className="recipe-label">
-          {recipes.map((recipe) => (
-            <div className="individual-recipe" key={recipe.recipe_id}>
-              <RecipeDisplay recipe={recipe} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </StyledDashboard>
-  );
+	return (
+		<div>
+			<NavBar />
+		<div className="recipes-container">
+			<button onClick={() => handleAdd()}>Add Recipe</button>
+			<div className="recipe-label">
+				{recipes.map((recipe) => (
+					<div className="individual-recipe" key={recipe.recipe_id}>
+						<RecipeDisplay recipe={recipe} />
+					</div>
+				))}
+			</div>
+		</div>
+		</div>
+	);
 }
 
 const StyledDashboard = styled.div`

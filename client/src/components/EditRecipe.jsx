@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { axiosWithAuth } from "../auth/axiosWithAuth";
 import { editRecipe } from "../store/recipe";
 import styled from "styled-components";
+import NavBar from "./NavBar";
 
 const initialFormValues = {
   recipe_title: "",

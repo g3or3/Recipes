@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
+import NavBar from "./NavBar";
 import styled from "styled-components";
 
 export default function EmptyLandingPage() {
@@ -10,6 +11,7 @@ export default function EmptyLandingPage() {
   };
   return (
     <StyledEmpty>
+      <NavBar />
       <div className="container" id="empty">
         <h2>You don't have any recipes yet!</h2>
         <button onClick={() => handleAdd()}>Create your first recipe</button>
